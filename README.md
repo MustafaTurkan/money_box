@@ -8,6 +8,8 @@ After its added to the money box you need to increase your money in the app.
 
 technically what I use
 
+Dart/Flutter
+
 Architectural : domain driven design
 
 State Management : Bloc/Cubit and Provider
