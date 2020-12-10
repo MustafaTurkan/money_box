@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:money_box/data/data.dart';
+import 'package:money_box/domain/domain.dart';
 import 'package:money_box/ui/ui.dart';
 
 import 'package:provider/provider.dart';
@@ -9,14 +11,23 @@ import 'package:provider/single_child_widget.dart';
 
 import 'infrastructure/infrastructure.dart';
 
-
-
 class App {
   void buildAppServices() {
+    //database
+    AppService.addSingleton<MoneyBoxDb>(
+      MoneyBoxDb(),
+    );
     
- 
-  }
+    //repositories
+    AppService.addTransient<IGoalRepository>(
+      () => GoalRepository(AppService.get<MoneyBoxDb>()),
+    );
 
+    AppService.addTransient<IMobilityRepository>(
+      () => MobilityRepository(AppService.get<MoneyBoxDb>()),
+    );
+
+  }
 
   void setSystemChromeSettings() {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -25,20 +36,15 @@ class App {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   }
 
-
-
-
-
   Future<void> run() async {
     if (kReleaseMode) {
       debugPrint = (message, {wrapWidth}) {};
     }
 
-      WidgetsFlutterBinding.ensureInitialized();
-      setSystemChromeSettings();
-      buildAppServices();
-      runApp(AppWidget('Nebim V3 Store'));
-
+    WidgetsFlutterBinding.ensureInitialized();
+    setSystemChromeSettings();
+    buildAppServices();
+    runApp(AppWidget('Money Box'));
   }
 }
 
@@ -81,7 +87,7 @@ class AppWidget extends StatelessWidget {
     return AppLocale.supportedLocales;
   }
 
-  String _getUserLanguage(){
+  String _getUserLanguage() {
     return null;
   }
 
