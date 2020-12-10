@@ -2,23 +2,28 @@ class DbString {
   static const String name = 'money_box.db';
 }
 
+
+
 class GoalString {
-  static const String name = 'goal';
-  static const String idCol = 'id';
-  static const String titleCol = 'title';
-  static const String imgCol = 'img';
-  static const String targetDateCol = 'targetDate';
-  static const String targetAmountCol = 'targetAmount';
-  static const String depositedCol = 'deposited';
-  static const String currencyCol = 'Currency';
-  static const String frequencyCol = 'frequencyCol';
+  static const String tableName = 'goal';
+  static const String id = 'id';
+  static const String title = 'title';
+  static const String img = 'img';
+  static const String targetDate = 'targetDate';
+  static const String targetAmount = 'targetAmount';
+  static const String deposited = 'deposited';
+  static const String currency = 'Currency';
+  static const String frequency = 'frequency';
+  static const String createTable = 'CREATE TABLE $tableName ($id INTEGER PRIMARY KEY AUTOINCREMENT, $title TEXT, $img BLOB, $targetAmount REAL, $targetDate TEXT, $deposited REAL, $currency TEXT,$frequency INTEGER)';
 }
 
 class MobilityString {
-  static const String name = 'mobility';
-  static const String idCol = 'id';
-  static const String goalIdCol = 'goalId';
-  static const String titleCol = 'title';
-  static const String transactionDateCol = 'transactionDate';
-  static const String amountCol = 'amount';
+  static const String tableName = 'mobility';
+  static const String id = 'id';
+  static const String goalId = 'goalId';
+  static const String title = 'title';
+  static const String transactionDate = 'transactionDate';
+  static const String amount = 'amount';
+  static const String createTable = 'CREATE TABLE $tableName ($id INTEGER PRIMARY KEY AUTOINCREMENT, $title TEXT, $goalId INTEGER, $transactionDate TEXT, $amount REAL)';
+
 }
