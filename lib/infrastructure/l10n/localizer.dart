@@ -26,8 +26,8 @@ class Localizer {
   }
 
   String get appName => Intl.message('Money Box');
-
-  
+  String get goals => Intl.message('Goals');
+    String get completed => Intl.message('Completed');
 
   //dynamic text translate
   String translate(String text,

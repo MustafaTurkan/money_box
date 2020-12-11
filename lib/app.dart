@@ -12,19 +12,20 @@ import 'package:provider/single_child_widget.dart';
 import 'infrastructure/infrastructure.dart';
 
 class App {
-  void buildAppServices() {
+ Future<void> buildAppServices() async{
     //database
     AppService.addSingleton<MoneyBoxDb>(
       MoneyBoxDb(),
     );
-    
+    var db =AppService.get<MoneyBoxDb>();
+    await db.initialize();
     //repositories
     AppService.addTransient<IGoalRepository>(
-      () => GoalRepository(AppService.get<MoneyBoxDb>()),
+      () => GoalRepository(db),
     );
 
     AppService.addTransient<IMobilityRepository>(
-      () => MobilityRepository(AppService.get<MoneyBoxDb>()),
+      () => MobilityRepository(db),
     );
 
   }
@@ -43,7 +44,7 @@ class App {
 
     WidgetsFlutterBinding.ensureInitialized();
     setSystemChromeSettings();
-    buildAppServices();
+    await buildAppServices();
     runApp(AppWidget('Money Box'));
   }
 }

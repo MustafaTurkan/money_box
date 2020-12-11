@@ -3,7 +3,6 @@ import 'package:money_box/ui/theme/app_theme_data.dart';
 import 'package:money_box/ui/theme/theme.dart';
 import 'package:money_box/infrastructure/infrastructure.dart';
 
-
 class DefaultThemeColors extends IAppColors {
   //primartPale 0xffE8F0FE
   @override
@@ -140,7 +139,7 @@ AppThemeData buildDefaultTheme(BuildContext context, {IAppColors colors}) {
         .copyWith(selectionHandleColor: appColors.primary, selectionColor: appColors.primary.lighten(0.8)),
     useTextSelectionTheme: true,
     popupMenuTheme: PopupMenuThemeData(elevation: 0.5),
-    floatingActionButtonTheme: FloatingActionButtonThemeData(elevation: 0.5),
+    floatingActionButtonTheme: FloatingActionButtonThemeData(backgroundColor: appColors.primary, elevation: 0.5),
     dividerTheme: DividerThemeData(color: appColors.divider, space: 1),
     tabBarTheme: TabBarTheme(
       labelColor: appColors.primary,
