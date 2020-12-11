@@ -13,6 +13,10 @@ import 'infrastructure/infrastructure.dart';
 
 class App {
   Future<void> buildAppServices() async {
+
+    AppService.addSingleton<AppNavigator>(
+      AppNavigator(),
+    );
     //database
     AppService.addSingleton<MoneyBoxDb>(
       MoneyBoxDb(),
@@ -66,7 +70,7 @@ class AppWidget extends StatelessWidget {
           builder: _builder,
           navigatorKey: AppNavigator.key,
           navigatorObservers: [AppNavigator.routeObserver],
-          home: HomeView(),
+          home: GoalListView(),
         ));
       },
     );

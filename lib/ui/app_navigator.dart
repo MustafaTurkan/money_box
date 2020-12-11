@@ -7,10 +7,10 @@ class AppNavigator {
   static final key = GlobalKey<NavigatorState>();
   static final routeObserver = RouteObserver<PageRoute>();
 
-  Future<void> pushAddGoal(BuildContext context) {
+  Future<void> pushGoalAdd(BuildContext context) {
     return Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => AddGoalView()),
+      MaterialPageRoute(builder: (context) => GoalAddView()),
     );
   }
 
