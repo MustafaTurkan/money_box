@@ -99,7 +99,7 @@ class _GoalListViewState extends State<GoalListView> {
 
 
   Future<void> onGoalAdd(BuildContext context) async {
-    await navigator.pushGoalAdd(context);
+    await navigator.pushGoalAdd(context);//Todo:will return isAdd if true setState
     setState(() {});
   }
 }
