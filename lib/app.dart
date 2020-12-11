@@ -12,12 +12,12 @@ import 'package:provider/single_child_widget.dart';
 import 'infrastructure/infrastructure.dart';
 
 class App {
- Future<void> buildAppServices() async{
+  Future<void> buildAppServices() async {
     //database
     AppService.addSingleton<MoneyBoxDb>(
       MoneyBoxDb(),
     );
-    var db =AppService.get<MoneyBoxDb>();
+    var db = AppService.get<MoneyBoxDb>();
     await db.initialize();
     //repositories
     AppService.addTransient<IGoalRepository>(
@@ -27,7 +27,6 @@ class App {
     AppService.addTransient<IMobilityRepository>(
       () => MobilityRepository(db),
     );
-
   }
 
   void setSystemChromeSettings() {
@@ -65,6 +64,8 @@ class AppWidget extends StatelessWidget {
           supportedLocales: _supportedLocales(),
           title: title,
           builder: _builder,
+          navigatorKey: AppNavigator.key,
+          navigatorObservers: [AppNavigator.routeObserver],
           home: HomeView(),
         ));
       },

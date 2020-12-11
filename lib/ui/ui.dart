@@ -1,3 +1,4 @@
 export 'theme/theme.dart';
-export 'home_view.dart';
+export 'views/views.dart';
 export 'widget/widget.dart';
+export 'app_navigator.dart';
