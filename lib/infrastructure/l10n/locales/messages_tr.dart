@@ -25,5 +25,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "Money Box": MessageLookupByLibrary.simpleMessage("Kumbara"),
         "Goals": MessageLookupByLibrary.simpleMessage("Hedefler"),
         "Completed": MessageLookupByLibrary.simpleMessage("Tamamlananlar"),
+          "Record not found!": MessageLookupByLibrary.simpleMessage("Kayıt bulunamadı!"),
+        "No data": MessageLookupByLibrary.simpleMessage("Veri yok"),
+        "An unexpected error occurred!": MessageLookupByLibrary.simpleMessage("Beklenmeyen bir hata oluştu!"),
+"You do not have any active goal":MessageLookupByLibrary.simpleMessage("Aktif bir hedefin bulunmuyor"),
   };
 }

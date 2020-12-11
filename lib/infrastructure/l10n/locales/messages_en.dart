@@ -24,5 +24,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "Money Box": MessageLookupByLibrary.simpleMessage("Money Box"),
         "Goals": MessageLookupByLibrary.simpleMessage("Goals"),
         "Completed": MessageLookupByLibrary.simpleMessage("Completed"),
+        "Record not found!": MessageLookupByLibrary.simpleMessage("Record not found!"),
+        "No data": MessageLookupByLibrary.simpleMessage("No data"),
+        "An unexpected error occurred!": MessageLookupByLibrary.simpleMessage("An unexpected error occurred!"),
+        "You do not have any active goal": MessageLookupByLibrary.simpleMessage("You do not have any active goal"),
       };
 }

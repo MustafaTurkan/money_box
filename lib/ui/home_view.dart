@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:money_box/data/data.dart';
+import 'package:money_box/domain/domain.dart';
 import 'package:money_box/infrastructure/infrastructure.dart';
 import 'package:money_box/ui/ui.dart';
 
@@ -11,10 +13,20 @@ class HomeView extends StatefulWidget {
   _HomeViewState createState() => _HomeViewState();
 }
 
-class _HomeViewState extends State<HomeView>{
+class _HomeViewState extends State<HomeView> {
+  _HomeViewState() : repository = AppService.get<IGoalRepository>();
+
+  final IGoalRepository repository;
+
   TabController tabController;
   Localizer localizer;
-  bool addGoalVisiblity = true;
+  Future<List<Goal>> futureGoals;
+
+  @override
+  void initState() {
+    super.initState();
+    futureGoals = repository.getGoals();
+  }
 
   @override
   void didChangeDependencies() {
@@ -24,66 +36,56 @@ class _HomeViewState extends State<HomeView>{
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: Views.values.length,
-      child: Builder(
-        builder: (context) {
-          tabController = DefaultTabController.of(context);
-          tabController.addListener(_handlerTabView);
-          return Scaffold(
-            appBar: AppBar(
-              leading: IconButton(
-                icon: Icon(AppIcons.filter),
-                onPressed: () {},
-              ),
-              centerTitle: true,
-              title: Text(localizer.appName),
-              actions: [
-                IconButton(
-                  icon: Icon(AppIcons.cog),
-                  onPressed: () {},
-                )
-              ],
-              bottom: TabBar(
-                controller: tabController,
-                tabs: [
-                  Tab(text: localizer.goals),
-                  Tab(text: localizer.completed),
-                ],
-              ),
+    return Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+            icon: Icon(AppIcons.cog),
+            onPressed: () {},
+          ),
+          centerTitle: true,
+          title: Text(localizer.appName),
+          actions: [
+            IconButton(
+              icon: Icon(AppIcons.playlistCheck),
+              onPressed: () {},
             ),
-            body: Container(
-                child: TabBarView(
-              children: [
-                ContentContainer(
-                    child: Center(
-                  child: Text('Goals'),
-                )),
-                ContentContainer(
-                    child: Center(
-                  child: Text('Completed'),
-                ))
-              ],
-            )),
-            floatingActionButton: addGoalVisiblity
-                ? FloatingActionButton(
-                    onPressed: () {},
-                    child: Icon(AppIcons.plus),
-                  )
-                : null,
-          );
-        },
-      ),
+                        IconButton(
+              icon: Icon(AppIcons.filter),
+              onPressed: () {},
+            )
+          ],
+        ),
+        body: ContentContainer(
+          child: FutureBuilder<List<Goal>>(
+              future: futureGoals,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState != ConnectionState.done) {
+                  return Center(child: WidgetFactory.dotProgressIndicator());
+                }
+                if (snapshot.hasError) {
+                  return BackgroundHint.unExpectedError(context);
+                }
+
+                return _buildGoals(snapshot.data);
+              }),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {},
+          child: Icon(AppIcons.plus),
+        ));
+  }
+
+  Widget _buildGoals(List<Goal> goals) {
+    if (goals.isNullOrEmpty()) {
+      return BackgroundHint(
+        iconData: AppIcons.piggyBank,
+        message: localizer.dontHaveActiveGoals,
+      );
+    }
+    return Center(
+      child: Text('Goals'),
     );
   }
 
-  void _handlerTabView() {
-    setState(() {
-      if (tabController.index == Views.goals.index) {
-        addGoalVisiblity = true;
-        return;
-      }
-      addGoalVisiblity = false;
-    });
-  }
+
 }
