@@ -4,11 +4,10 @@ import 'package:money_box/data/data.dart';
 import 'package:money_box/domain/domain.dart';
 
 class GoalAddCubit extends Cubit<GoalAddState> {
-  GoalAddCubit({@required this.goalRepository, @required this.initialGoals}) : super(GoalAddedInitial());
+  GoalAddCubit({@required this.goalRepository}) : super(GoalAddedInitial());
 
   final IGoalRepository goalRepository;
-  final List<Goal> initialGoals;
-
+  
   Future<void> add(Goal goal) async {
     try {
       emit(GoalAddedLoading());

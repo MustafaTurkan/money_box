@@ -7,3 +7,4 @@ export 'indicators/linear_indicator.dart';
 export 'indicators/page_indicator.dart';
 export 'indicators/threedot_wait_indicator.dart';
 export 'background_hint.dart';
+export 'fields/fields.dart';

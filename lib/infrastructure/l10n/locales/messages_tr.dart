@@ -27,7 +27,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "Completed": MessageLookupByLibrary.simpleMessage("Tamamlananlar"),
           "Record not found!": MessageLookupByLibrary.simpleMessage("Kayıt bulunamadı!"),
         "No data": MessageLookupByLibrary.simpleMessage("Veri yok"),
+                "Add Goal": MessageLookupByLibrary.simpleMessage("Hedef Ekle"),
+                        "Loading...": MessageLookupByLibrary.simpleMessage("Yükleniyor ..."),
         "An unexpected error occurred!": MessageLookupByLibrary.simpleMessage("Beklenmeyen bir hata oluştu!"),
 "You do not have any active goal":MessageLookupByLibrary.simpleMessage("Aktif bir hedefin bulunmuyor"),
+        "Search": MessageLookupByLibrary.simpleMessage("Ara"),
   };
 }

@@ -31,8 +31,9 @@ class Localizer {
   String get noData => Intl.message('No data');
   String get dontHaveActiveGoals => Intl.message('You do not have any active goal');
   String get anUnExpectedErrorOccurred => Intl.message('An unexpected error occurred!');
-
-   
+  String get addGoal => Intl.message('Add Goal');
+  String get loading => Intl.message('Loading...');
+     String get search => Intl.message('Search');
     String get completed => Intl.message('Completed');
 
   //dynamic text translate

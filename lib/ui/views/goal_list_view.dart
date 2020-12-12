@@ -38,19 +38,17 @@ class _GoalListViewState extends State<GoalListView> {
             buildFilterButton()
           ],
         ),
-        body: ContentContainer(
-          child: FutureBuilder<List<Goal>>(
-              future: repository.getGoals(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState != ConnectionState.done) {
-                  return Center(child: WidgetFactory.dotProgressIndicator());
-                }
-                if (snapshot.hasError) {
-                  return BackgroundHint.unExpectedError(context);
-                }
-                return buildGoals(snapshot.data);
-              }),
-        ),
+        body: FutureBuilder<List<Goal>>(
+            future: repository.getGoals(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState != ConnectionState.done) {
+                return Center(child: WidgetFactory.dotProgressIndicator());
+              }
+              if (snapshot.hasError) {
+                return BackgroundHint.unExpectedError(context);
+              }
+              return buildGoals(snapshot.data);
+            }),
         floatingActionButton:buildGoalAddButton());
   }
 
