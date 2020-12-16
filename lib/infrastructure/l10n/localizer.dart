@@ -35,7 +35,7 @@ class Localizer {
   String get loading => Intl.message('Loading...');
      String get search => Intl.message('Search');
     String get completed => Intl.message('Completed');
-
+    String get addPhoto => Intl.message('Add Picture');
   //dynamic text translate
   String translate(String text,
       {String desc = '',

@@ -31,5 +31,6 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Search": MessageLookupByLibrary.simpleMessage("Search"),
         "An unexpected error occurred!": MessageLookupByLibrary.simpleMessage("An unexpected error occurred!"),
         "You do not have any active goal": MessageLookupByLibrary.simpleMessage("You do not have any active goal"),
+                      "Add Picture": MessageLookupByLibrary.simpleMessage("Add Picture"),
       };
 }

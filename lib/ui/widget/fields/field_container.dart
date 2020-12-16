@@ -26,6 +26,7 @@ class FieldContainer extends StatelessWidget {
               child: Text(
                 labelText,
                 textAlign: TextAlign.left,
+                style:context.getTheme().textStyles.body.copyWith(color:context.getTheme().colors.primary),
               ),
             )),
         child
