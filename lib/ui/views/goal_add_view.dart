@@ -1,7 +1,6 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:money_box/domain/domain.dart';
 import 'package:money_box/infrastructure/infrastructure.dart';
@@ -59,11 +58,12 @@ class _GoalAddViewState extends State<GoalAddView> {
                       padding: const EdgeInsets.all(Space.m),
                       labelText: 'Target Amount',
                       child: TextField(
+                        keyboardType: TextInputType.number,
                         inputFormatters: [
-                                              MoneyInputFormatter(
-                     
-                      thousandSeparator: ThousandSeparator.Period,
-                    )],
+                          MoneyInputFormatter(
+                          
+                              )
+                        ],
                       ),
                     ),
                     FieldContainer(
@@ -71,7 +71,7 @@ class _GoalAddViewState extends State<GoalAddView> {
                       labelText: 'Target Date',
                       child: DateField(
                         value: DateTime.now(),
-                        onChanged: (val){},
+                        onChanged: (val) {},
                       ),
                     ),
                   ],
@@ -85,7 +85,6 @@ class _GoalAddViewState extends State<GoalAddView> {
     );
   }
 
-
   Widget buildGoalAddButton(BuildContext context) {
     return FloatingActionButton(
       onPressed: () {},
@@ -94,38 +93,35 @@ class _GoalAddViewState extends State<GoalAddView> {
   }
 
   Widget buildImage() {
-
-    var emptyPhoto=Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                          AppIcons.camera,
-                          size: mediaQuery.size.widthPercent(20),
-                        ),
-                        Text('Resim Ekle',style: appTheme.textStyles.caption,),
-                    ],
-                  );
+    var emptyPhoto = Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Icon(
+          AppIcons.camera,
+          size: mediaQuery.size.widthPercent(20),
+        ),
+        Text(
+          localizer.addPhoto,
+          style: appTheme.textStyles.caption,
+        ),
+      ],
+    );
 
     return Center(
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(mediaQuery.size.widthPercent(24))),
         elevation: 2,
-        child:
-            GestureDetector(
-              onTap: ()async{
-                  await imagePicke();
-              },
-              child: CircleAvatar(
-                
-                backgroundColor: appTheme.colors.canvas,
-                backgroundImage: image == null ? null : MemoryImage(image),
-                radius: mediaQuery.size.widthPercent(20),
-                child: image == null
-                    ? emptyPhoto
-                    : null,
-              ),
-            ),
-
+        child: GestureDetector(
+          onTap: () async {
+            await imagePicke();
+          },
+          child: CircleAvatar(
+            backgroundColor: appTheme.colors.canvas,
+            backgroundImage: image == null ? null : MemoryImage(image),
+            radius: mediaQuery.size.widthPercent(20),
+            child: image == null ? emptyPhoto : null,
+          ),
+        ),
       ),
     );
   }
@@ -140,5 +136,3 @@ class _GoalAddViewState extends State<GoalAddView> {
     }
   }
 }
-
-
