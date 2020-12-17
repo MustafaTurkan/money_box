@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'utils.dart';
+import 'formatter_utils.dart';
 
 final RegExp _repeatingDots = RegExp(r'\.{2,}');
 final RegExp _repeatingCommas = RegExp(r',{2,}');
@@ -32,7 +32,7 @@ class MoneyInputFormatter extends TextInputFormatter {
   final ValueChanged<double> onValueChange;
 
   bool isZero(String text) {
-    var numeriString = Utils.toNumericString(text, allowPeriod: true);
+    var numeriString = FormatterUtils.toNumericString(text, allowPeriod: true);
     var value = double.tryParse(numeriString) ?? 0.0;
     return value == 0.0;
   }
@@ -247,7 +247,7 @@ class MoneyInputFormatter extends TextInputFormatter {
 
   void _processCallback(String value) {
     if (onValueChange != null) {
-      var numericValue = Utils.toNumericString(value, allowPeriod: true);
+      var numericValue = FormatterUtils.toNumericString(value, allowPeriod: true);
       var val = double.tryParse(numericValue) ?? 0.0;
       onValueChange(val);
     }
@@ -304,7 +304,7 @@ String toCurrencyString(
   }
 
   value = value.replaceAll(_repeatingDots, '.');
-  value = Utils.toNumericString(value, allowPeriod: mantissaLength > 0);
+  value = FormatterUtils.toNumericString(value, allowPeriod: mantissaLength > 0);
   var isNegative = value.contains('-');
 
   var parsed = double.tryParse(value) ?? 0.0;
@@ -393,7 +393,7 @@ String toCurrencyString(
         }
       } else {
         if (value.length >= minShorteningLength) {
-          if (!Utils.isDigit(split[i])) {
+          if (!FormatterUtils.isDigit(split[i])) {
             digitCounter = 1;
           }
           if (digitCounter % 3 == 1 && digitCounter > 1 && i > (isNegative ? 1 : 0)) {

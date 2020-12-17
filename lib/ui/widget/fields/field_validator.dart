@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
 import 'package:money_box/infrastructure/infrastructure.dart';
 import 'package:money_box/data/data.dart';
+import 'package:money_box/ui/ui.dart';
 
 abstract class FieldValidator<T> {
   FieldValidator(this.errorText) : assert(errorText != null);
@@ -58,6 +59,28 @@ class MinLengthValidator extends TextFieldValidator {
   }
 }
 
+class MinAmountValidator extends TextFieldValidator {
+  MinAmountValidator({@required this.min, @required String errorText}) : super(errorText);
+
+  final int min;
+  @override
+  bool get ignoreEmptyValues => false;
+  @override
+  bool isValid(String value) {
+    if (value.isNullOrEmpty()) {
+      return false;
+    }
+    double amout;
+    try {
+      amout = value.amountValue();
+    } catch (e) {
+      return false;
+    }
+
+    return amout > min;
+  }
+}
+
 class LengthRangeValidator extends TextFieldValidator {
   LengthRangeValidator({@required this.min, @required this.max, @required String errorText}) : super(errorText);
 
@@ -78,7 +101,7 @@ class RangeValidator extends TextFieldValidator {
 
   final num min;
   final num max;
-  
+
   @override
   bool get ignoreEmptyValues => false;
 

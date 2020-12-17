@@ -10,7 +10,7 @@ class GoalAddCubit extends Cubit<GoalAddState> {
   
   Future<void> add(Goal goal) async {
     try {
-      emit(GoalAddedLoading());
+      emit(GoalAdding());
       await goalRepository.add(goal);
       emit(GoalAddedSucces());
     } catch (e) {

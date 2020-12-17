@@ -2,7 +2,9 @@ import 'dart:math';
 
 import 'package:flutter/services.dart';
 
-import 'utils.dart';
+import '../../../ui.dart';
+
+
 
 class MaskedInputFormater extends TextInputFormatter {
   MaskedInputFormater(this.mask, {this.anyCharMatcher}) : assert(mask != null);
@@ -53,7 +55,7 @@ class MaskedInputFormater extends TextInputFormatter {
           break;
         }
       } else if (mask[i] == _onlyDigitMask) {
-        if (Utils.isDigit(curChar)) {
+        if (FormatterUtils.isDigit(curChar)) {
           result.add(curChar);
           index++;
         } else {

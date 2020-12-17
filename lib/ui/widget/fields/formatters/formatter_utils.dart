@@ -1,4 +1,4 @@
-class Utils {
+class FormatterUtils {
   static RegExp _digitRegex = RegExp(r'[-0-9]+');
   static RegExp _digitWithPeriodRegex = RegExp(r'[-0-9]+(\.[0-9]+)?');
 

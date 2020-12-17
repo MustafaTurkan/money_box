@@ -33,9 +33,28 @@ class Localizer {
   String get anUnExpectedErrorOccurred => Intl.message('An unexpected error occurred!');
   String get addGoal => Intl.message('Add Goal');
   String get loading => Intl.message('Loading...');
-     String get search => Intl.message('Search');
-    String get completed => Intl.message('Completed');
-    String get addPhoto => Intl.message('Add Picture');
+  String get search => Intl.message('Search');
+  String get completed => Intl.message('Completed');
+  String get addPhoto => Intl.message('Add Picture');
+  String get title => Intl.message('Title');
+  String get goalAmount => Intl.message('Goal Amount');
+  String get goalDate => Intl.message('Goal Date');
+
+  String get ok => Intl.message('OK');
+  String get yes => Intl.message('Yes');
+  String get no => Intl.message('No');
+  String get cancel => Intl.message('Cancel');
+  String get close => Intl.message('Close');
+  String get warning => Intl.message('Warning');
+  String get error => Intl.message('Error');
+  String get information => Intl.message('Information');
+  String get question => Intl.message('Question');
+  String get message => Intl.message('Message');
+  String get requiredValue => Intl.message('Required');
+   String get mustBeGreaterThanZero => Intl.message('Must be greater than zero');
+
+  String mustBeGreaterThanValue(String value) =>
+      Intl.message('Must be greater than $value', name: 'mustBeGreaterThanValue', args: [value]);
   //dynamic text translate
   String translate(String text,
       {String desc = '',
@@ -48,7 +67,6 @@ class Localizer {
     return Intl.message(text,
         desc: desc, examples: examples, locale: locale, name: name, args: args, meaning: meaning, skip: skip);
   }
-
 }
 
 class AppLocalizationsDelegate extends LocalizationsDelegate<Localizer> {

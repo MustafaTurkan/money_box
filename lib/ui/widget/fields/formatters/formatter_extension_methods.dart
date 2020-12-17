@@ -1,5 +1,3 @@
-
-
 import 'money_input_formatter.dart' as money;
 import 'money_input_formatter.dart';
 
@@ -36,5 +34,9 @@ extension StringInputFormatting on String {
         thousandSeparator: thousandSeparator,
         trailingSymbol: trailingSymbol,
         useSymbolPadding: useSymbolPadding);
+  }
+
+  double amountValue() {
+    return double.parse(replaceAll(RegExp(','), ''));
   }
 }

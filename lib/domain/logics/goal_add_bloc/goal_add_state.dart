@@ -4,7 +4,7 @@ abstract class GoalAddState {}
 
 class GoalAddedInitial extends GoalAddState {}
 
-class GoalAddedLoading extends GoalAddState {}
+class GoalAdding extends GoalAddState {}
 
 class GoalAddedSucces extends GoalAddState {}
 

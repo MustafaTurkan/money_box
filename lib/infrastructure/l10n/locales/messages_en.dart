@@ -18,19 +18,35 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
-
+     static String m0(String value) => "Must be greater than ${value}"; 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(dynamic _) => <String, Function>{
         "Money Box": MessageLookupByLibrary.simpleMessage("Money Box"),
         "Goals": MessageLookupByLibrary.simpleMessage("Goals"),
         "Completed": MessageLookupByLibrary.simpleMessage("Completed"),
         "Add Goal": MessageLookupByLibrary.simpleMessage("Add Goal"),
-                "Loading...": MessageLookupByLibrary.simpleMessage("Loading..."),
+        "Loading...": MessageLookupByLibrary.simpleMessage("Loading..."),
         "Record not found!": MessageLookupByLibrary.simpleMessage("Record not found!"),
         "No data": MessageLookupByLibrary.simpleMessage("No data"),
-                "Search": MessageLookupByLibrary.simpleMessage("Search"),
+        "Search": MessageLookupByLibrary.simpleMessage("Search"),
         "An unexpected error occurred!": MessageLookupByLibrary.simpleMessage("An unexpected error occurred!"),
         "You do not have any active goal": MessageLookupByLibrary.simpleMessage("You do not have any active goal"),
-                      "Add Picture": MessageLookupByLibrary.simpleMessage("Add Picture"),
+        "Add Picture": MessageLookupByLibrary.simpleMessage("Add Picture"),
+        "Title": MessageLookupByLibrary.simpleMessage("Title"),
+        "Goal Amount": MessageLookupByLibrary.simpleMessage("Goal Amount"),
+        "Goal Date": MessageLookupByLibrary.simpleMessage("Goal Date"),
+        "OK": MessageLookupByLibrary.simpleMessage("OK"),
+        "Yes": MessageLookupByLibrary.simpleMessage("Yes"),
+        "No": MessageLookupByLibrary.simpleMessage("No"),
+        "Cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
+        "Close": MessageLookupByLibrary.simpleMessage("Close"),
+        "Warning": MessageLookupByLibrary.simpleMessage("Warning"),
+        "Error": MessageLookupByLibrary.simpleMessage("Error"),
+        "Information": MessageLookupByLibrary.simpleMessage("Information"),
+        "Question": MessageLookupByLibrary.simpleMessage("Question"),
+        "Message": MessageLookupByLibrary.simpleMessage("Message"),
+                "Required": MessageLookupByLibrary.simpleMessage("Required"),
+                        "Must be greater than zero": MessageLookupByLibrary.simpleMessage("Must be greater than zero"),
+                  "mustBeGreaterThanValue": m0,
       };
 }

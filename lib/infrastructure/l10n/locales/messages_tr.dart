@@ -19,20 +19,36 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'tr';
 
- 
+     static String m0(String value) => "${value} dan büyük olmalı"; 
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(dynamic _) => <String, Function>{
         "Money Box": MessageLookupByLibrary.simpleMessage("Kumbara"),
         "Goals": MessageLookupByLibrary.simpleMessage("Hedefler"),
         "Completed": MessageLookupByLibrary.simpleMessage("Tamamlananlar"),
-          "Record not found!": MessageLookupByLibrary.simpleMessage("Kayıt bulunamadı!"),
+        "Record not found!": MessageLookupByLibrary.simpleMessage("Kayıt bulunamadı!"),
         "No data": MessageLookupByLibrary.simpleMessage("Veri yok"),
-                "Add Goal": MessageLookupByLibrary.simpleMessage("Hedef Ekle"),
-                        "Loading...": MessageLookupByLibrary.simpleMessage("Yükleniyor ..."),
+        "Add Goal": MessageLookupByLibrary.simpleMessage("Hedef Ekle"),
+        "Loading...": MessageLookupByLibrary.simpleMessage("Yükleniyor ..."),
         "An unexpected error occurred!": MessageLookupByLibrary.simpleMessage("Beklenmeyen bir hata oluştu!"),
-"You do not have any active goal":MessageLookupByLibrary.simpleMessage("Aktif bir hedefin bulunmuyor"),
+        "You do not have any active goal": MessageLookupByLibrary.simpleMessage("Aktif bir hedefin bulunmuyor"),
         "Search": MessageLookupByLibrary.simpleMessage("Ara"),
-                "Add Picture": MessageLookupByLibrary.simpleMessage("Resim Ekle"),
-        
-  };
+        "Add Picture": MessageLookupByLibrary.simpleMessage("Resim Ekle"),
+        "Title": MessageLookupByLibrary.simpleMessage("Başlık"),
+                "Required": MessageLookupByLibrary.simpleMessage("Zorunlu"),
+        "Goal Amount": MessageLookupByLibrary.simpleMessage("Hedef Miktarı"),
+        "Goal Date": MessageLookupByLibrary.simpleMessage("Hedef Tarihi"),
+        "OK": MessageLookupByLibrary.simpleMessage("Tamam"),
+        "Yes": MessageLookupByLibrary.simpleMessage("Evet"),
+        "No": MessageLookupByLibrary.simpleMessage("Hayır"),
+        "Cancel": MessageLookupByLibrary.simpleMessage("İptal"),
+        "Close": MessageLookupByLibrary.simpleMessage("Kapat"),
+        "Warning": MessageLookupByLibrary.simpleMessage("Uyarı"),
+        "Error": MessageLookupByLibrary.simpleMessage("Hata"),
+        "Information": MessageLookupByLibrary.simpleMessage("Bilgi"),
+        "Question": MessageLookupByLibrary.simpleMessage("Soru"),
+        "Message": MessageLookupByLibrary.simpleMessage("Mesaj"),
+        "Must be greater than zero": MessageLookupByLibrary.simpleMessage("Sıfırdan büyük olmalı"),
+         "mustBeGreaterThanValue": m0,
+      };
 }

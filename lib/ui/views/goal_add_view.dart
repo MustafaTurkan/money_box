@@ -1,7 +1,9 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:money_box/data/data.dart';
 import 'package:money_box/domain/domain.dart';
 import 'package:money_box/infrastructure/infrastructure.dart';
 import 'package:money_box/ui/ui.dart';
@@ -20,66 +22,111 @@ class _GoalAddViewState extends State<GoalAddView> {
 
   final IGoalRepository repository;
   final AppNavigator navigator;
+  final TextEditingController tecTitle = TextEditingController();
+  final TextEditingController tecAmount = TextEditingController();
+  final formKey = GlobalKey<FormState>();
   Localizer localizer;
   AppTheme appTheme;
   Uint8List image;
   MediaQueryData mediaQuery;
+  WaitDialog waitDialog;
+  DateTime currentDate = DateTime.now();
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     localizer = context.getLocalizer();
     mediaQuery = context.getMediaQuery();
     appTheme = context.getTheme();
+    waitDialog ??= WaitDialog(context);
+  }
+
+  @override
+  void dispose() {
+    tecTitle.dispose();
+    tecAmount.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<GoalAddCubit>(
-      create: (context) => GoalAddCubit(goalRepository: repository),
-      child: CustomScrollView(
-        slivers: [
-          SliverFillRemaining(
-            hasScrollBody: false,
-            child: Scaffold(
+        create: (context) => GoalAddCubit(goalRepository: repository),
+        child: Builder(
+          builder: (context) {
+            return Scaffold(
               appBar: AppBar(
                 title: Text(localizer.addGoal),
               ),
-              body: ContentContainer(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    buildImage(),
-                    FieldContainer(
-                      padding: const EdgeInsets.all(Space.m),
-                      labelText: 'Title',
-                      child: TextField(),
-                    ),
-                    FieldContainer(
-                      padding: const EdgeInsets.all(Space.m),
-                      labelText: 'Target Amount',
-                      child: TextField(
-                        keyboardType: TextInputType.number,
-                        inputFormatters: [
-                          MoneyInputFormatter(
-                          
-                              )
-                        ],
-                      ),
-                    ),
-                    FieldContainer(
-                      padding: const EdgeInsets.all(Space.m),
-                      labelText: 'Target Date',
-                      child: DateField(
-                        value: DateTime.now(),
-                        onChanged: (val) {},
-                      ),
-                    ),
-                  ],
+              body: BlocListener<GoalAddCubit, GoalAddState>(
+                listener: (context, state) async {
+                  if (state is GoalAdding) {
+                    waitDialog.show();
+                    return;
+                  }
+                  waitDialog.hide();
+                  if (state is GoalAddedSucces) {
+                    navigator.pop(context);
+                  }
+                  if (state is GoalAddedFail) {
+                    await MessageDialog.error(context: context, message: state.message);
+                  }
+                },
+                child: Container(
+                  child: CustomScrollView(
+                    slivers: [
+                      SliverFillRemaining(
+                        hasScrollBody: false,
+                        child: ContentContainer(
+                          child: buildForm(),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
               floatingActionButton: buildGoalAddButton(context),
+            );
+          },
+        ));
+  }
+
+  Form buildForm() {
+    return Form(
+      key: formKey,
+      child: Column(
+        children: [
+          buildImage(),
+          FieldContainer(
+            padding: const EdgeInsets.all(Space.m),
+            labelText: localizer.title,
+            child: TextFormField(
+              controller: tecTitle,
+              validator: RequiredValidator<String>(errorText: localizer.requiredValue),
             ),
-          )
+          ),
+          FieldContainer(
+            padding: const EdgeInsets.all(Space.m),
+            labelText: localizer.goalAmount,
+            child: TextFormField(
+              controller: tecAmount,
+              validator: MinAmountValidator(min: 0, errorText: localizer.mustBeGreaterThanZero),
+              keyboardType: TextInputType.number,
+              inputFormatters: [ MoneyInputFormatter()],
+            ),
+          ),
+          FieldContainer(
+            padding: const EdgeInsets.all(Space.m),
+            labelText: localizer.goalDate,
+            child: DateField(
+              value: currentDate,
+              onChanged: (val) {
+                setState(() {
+                  currentDate = val;
+                });
+              },
+            ),
+          ),
         ],
       ),
     );
@@ -87,7 +134,9 @@ class _GoalAddViewState extends State<GoalAddView> {
 
   Widget buildGoalAddButton(BuildContext context) {
     return FloatingActionButton(
-      onPressed: () {},
+      onPressed: () async {
+        await onSaveGoal(context);
+      },
       child: Icon(AppIcons.check),
     );
   }
@@ -133,6 +182,17 @@ class _GoalAddViewState extends State<GoalAddView> {
       setState(() {
         image = imageBytes;
       });
+    }
+  }
+
+  Future<void> onSaveGoal(BuildContext context) async {
+    if (formKey.currentState.validate()) {
+      await context.getBloc<GoalAddCubit>().add(Goal(
+            targetAmount: tecAmount.text.amountValue(),
+            title: tecTitle.text,
+            img: image,
+            currency: 'TRY',
+          ));
     }
   }
 }
