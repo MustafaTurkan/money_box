@@ -114,7 +114,7 @@ class _GoalAddViewState extends State<GoalAddView> {
           ),
           FieldContainer(
             padding: const EdgeInsets.all(Space.m),
-            labelText:'Miktar', //localizer.goalAmount,
+            labelText:localizer.goalAmount,
             child: TextFormField(
               controller: tecAmount,
               validator: MinAmountValidator(min: 0, errorText: localizer.mustBeGreaterThanZero),
@@ -124,7 +124,7 @@ class _GoalAddViewState extends State<GoalAddView> {
           ),
           FieldContainer(
             padding: const EdgeInsets.all(Space.m),
-            labelText:'Tarih',   //localizer.goalDate,
+            labelText:localizer.goalDate,
             child: DateField(
               value: currentDate,
               onChanged: (val) {
@@ -136,7 +136,7 @@ class _GoalAddViewState extends State<GoalAddView> {
           ),
           FieldContainer(
               padding: const EdgeInsets.all(Space.m),
-              labelText: 'Periyot',//localizer.savingPeriod,
+              labelText: localizer.savingPeriod,
               child: DropdownField<SavingPeriod>(
                 value: currentSavingPeriod,
                   items: SavingPeriod.values.map((e) {

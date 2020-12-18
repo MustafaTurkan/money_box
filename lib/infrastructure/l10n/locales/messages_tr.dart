@@ -36,8 +36,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Add Picture": MessageLookupByLibrary.simpleMessage("Resim Ekle"),
         "Title": MessageLookupByLibrary.simpleMessage("Başlık"),
         "Required": MessageLookupByLibrary.simpleMessage("Zorunlu"),
-        "Goal Amount": MessageLookupByLibrary.simpleMessage("Hedef Miktarı"),
-        "Goal Date": MessageLookupByLibrary.simpleMessage("Hedef Tarihi"),
+        "Goal Amount": MessageLookupByLibrary.simpleMessage("Miktar"),
+        "Goal Date": MessageLookupByLibrary.simpleMessage("Tarih"),
         "OK": MessageLookupByLibrary.simpleMessage("Tamam"),
         "Yes": MessageLookupByLibrary.simpleMessage("Evet"),
         "No": MessageLookupByLibrary.simpleMessage("Hayır"),
@@ -52,8 +52,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "daily": MessageLookupByLibrary.simpleMessage("Günlük"),
         "weekly": MessageLookupByLibrary.simpleMessage("Haftalık"),
         "monthly": MessageLookupByLibrary.simpleMessage("Aylık"),
-        "Saving Period": MessageLookupByLibrary.simpleMessage("Ekleme Periyodu"),
-        
+        "Saving Period": MessageLookupByLibrary.simpleMessage("Periyot"),
+        "Total": MessageLookupByLibrary.simpleMessage("Toplam"),
+        "Deposited": MessageLookupByLibrary.simpleMessage("Biriken"),
+        "Remaining": MessageLookupByLibrary.simpleMessage("Kalan"),
         "Must be greater than zero": MessageLookupByLibrary.simpleMessage("Sıfırdan büyük olmalı"),
         "mustBeGreaterThanValue": m0,
       };

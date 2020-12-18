@@ -33,8 +33,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "You do not have any active goal": MessageLookupByLibrary.simpleMessage("You do not have any active goal"),
         "Add Picture": MessageLookupByLibrary.simpleMessage("Add Picture"),
         "Title": MessageLookupByLibrary.simpleMessage("Title"),
-        "Goal Amount": MessageLookupByLibrary.simpleMessage("Goal Amount"),
-        "Goal Date": MessageLookupByLibrary.simpleMessage("Goal Date"),
+        "Goal Amount": MessageLookupByLibrary.simpleMessage("Amount"),
+        "Goal Date": MessageLookupByLibrary.simpleMessage("Date"),
         "OK": MessageLookupByLibrary.simpleMessage("OK"),
         "Yes": MessageLookupByLibrary.simpleMessage("Yes"),
         "No": MessageLookupByLibrary.simpleMessage("No"),
@@ -50,7 +50,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "weekly": MessageLookupByLibrary.simpleMessage("Weekly"),
         "monthly": MessageLookupByLibrary.simpleMessage("Monthly"),
         "Required": MessageLookupByLibrary.simpleMessage("Required"),
-        "Saving Period": MessageLookupByLibrary.simpleMessage("Saving Period"),
+        "Saving Period": MessageLookupByLibrary.simpleMessage("Period"),
+        "Total": MessageLookupByLibrary.simpleMessage("Total"),
+        "Remaining": MessageLookupByLibrary.simpleMessage("Remaining"),
+     
+                "Deposited": MessageLookupByLibrary.simpleMessage("Deposited"),
         "Must be greater than zero": MessageLookupByLibrary.simpleMessage("Must be greater than zero"),
         "mustBeGreaterThanValue": m0,
       };

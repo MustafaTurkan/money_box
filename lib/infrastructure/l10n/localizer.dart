@@ -57,6 +57,11 @@ class Localizer {
   String get daily => Intl.message('daily');
   String get weekly => Intl.message('weekly');
   String get monthly => Intl.message('monthly');
+  String get total => Intl.message('Total');
+  String get deposited => Intl.message('Deposited');
+    String get remaining => Intl.message('Remaining');
+  
+    
   String mustBeGreaterThanValue(String value) =>
       Intl.message('Must be greater than $value', name: 'mustBeGreaterThanValue', args: [value]);
 

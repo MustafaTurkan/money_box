@@ -48,12 +48,12 @@ class _GoalListViewState extends State<GoalListView> {
               if (snapshot.hasError) {
                 return BackgroundHint.unExpectedError(context);
               }
-              return buildGoals(snapshot.data);
+              return buildBody(snapshot.data);
             }),
         floatingActionButton: buildGoalAddButton());
   }
 
-  Widget buildGoals(List<Goal> goals) {
+  Widget buildBody(List<Goal> goals) {
     if (goals.isNullOrEmpty()) {
       return BackgroundHint(
         iconData: AppIcons.bullseyeArrow,
@@ -62,7 +62,12 @@ class _GoalListViewState extends State<GoalListView> {
     }
     return CustomScrollView(
       slivers: [
-        Statistics(appTheme: appTheme, mediaQuery: mediaQuery, context: context),
+        Statistics(
+          appTheme: appTheme,
+          mediaQuery: mediaQuery,
+          localizer: localizer,
+          goals: goals,
+        ),
       ],
     );
   }
@@ -104,21 +109,25 @@ class _GoalListViewState extends State<GoalListView> {
 }
 
 class Statistics extends StatelessWidget {
-   Statistics({
+  Statistics({
     Key key,
     @required this.appTheme,
     @required this.mediaQuery,
-    @required this.context,
+    @required this.localizer,
+    @required this.goals,
   }) : super(key: key);
 
-  
   final AppTheme appTheme;
   final MediaQueryData mediaQuery;
-  final BuildContext context;
+  final Localizer localizer;
+  final List<Goal> goals;
   final double dashboardHeight = 180;
 
   @override
   Widget build(BuildContext context) {
+    var totalAmount = goals.sum((e) => e.targetAmount.orDefault());
+    var deposited = goals.sum((e) => e.deposited.orDefault());
+    var remaining = totalAmount - deposited;
     return SliverPersistentHeader(
         floating: true,
         delegate: FixedHeightSliverPersistentHeaderDelegate(
@@ -129,32 +138,43 @@ class Statistics extends StatelessWidget {
                 children: [
                   CardTitle(
                     backgroundColor: appTheme.colors.canvasLight,
-                    title: 'Total',
+                    title: localizer.total,
                   ),
                   Padding(
-                     padding:  EdgeInsets.only(bottom:Space.m,right: Space.l,left:Space.l),
+                    padding: EdgeInsets.only(bottom: Space.m, right: Space.l, left: Space.l),
                     child: LinearPercentIndicator(
-                        width: MediaQuery.of(context).size.width - 50,
-                        animation: true,
-                        lineHeight: 20,
-                        animationDuration: 2500,
-                        backgroundColor:appTheme.colors.primaryPale.withOpacity(0.8),
-                        percent: 0.8,
-                        center: Text('80.0%',style: appTheme.textStyles.bodyBold.copyWith(color:appTheme.colors.fontLight),),
-                        linearStrokeCap: LinearStrokeCap.roundAll,
-                        progressColor:appTheme.colors.primary,
+                      width: MediaQuery.of(context).size.width - 50,
+                      animation: true,
+                      lineHeight: 20,
+                      animationDuration: 2500,
+                      backgroundColor: appTheme.colors.primaryPale.withOpacity(0.8),
+                      percent: 0.8,
+                      center: Text(
+                        '80.0%',
+                        style: appTheme.textStyles.bodyBold.copyWith(color: appTheme.colors.fontLight),
                       ),
+                      linearStrokeCap: LinearStrokeCap.roundAll,
+                      progressColor: appTheme.colors.primary,
+                    ),
                   ),
-                        IndentDivider(),
-                  WidgetFactory.rowLabelValue(
-                      appTheme: appTheme, mediaQuery: mediaQuery, label: 'Target Amount', value: '250'),
                   IndentDivider(),
                   WidgetFactory.rowLabelValue(
-                      appTheme: appTheme, mediaQuery: mediaQuery, label: 'Deposit', value: '100'),
+                      appTheme: appTheme,
+                      mediaQuery: mediaQuery,
+                      label: localizer.goalAmount,
+                      value: totalAmount.toCurrencyString()),
                   IndentDivider(),
                   WidgetFactory.rowLabelValue(
-                      appTheme: appTheme, mediaQuery: mediaQuery, label: 'Remaining', value: '150'),
-
+                      appTheme: appTheme,
+                      mediaQuery: mediaQuery,
+                      label: localizer.deposited,
+                      value: deposited.toCurrencyString()),
+                  IndentDivider(),
+                  WidgetFactory.rowLabelValue(
+                      appTheme: appTheme,
+                      mediaQuery: mediaQuery,
+                      label: localizer.remaining,
+                      value: remaining.toCurrencyString()),
                 ],
               ),
             )));
