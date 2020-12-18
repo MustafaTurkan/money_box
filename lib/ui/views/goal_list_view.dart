@@ -129,7 +129,7 @@ class Statistics extends StatelessWidget {
                 children: [
                   CardTitle(
                     backgroundColor: appTheme.colors.canvasLight,
-                    title: 'Statistics',
+                    title: 'Total',
                   ),
                   Padding(
                      padding:  EdgeInsets.only(bottom:Space.m,right: Space.l,left:Space.l),
@@ -139,7 +139,7 @@ class Statistics extends StatelessWidget {
                         lineHeight: 20,
                         animationDuration: 2500,
                         backgroundColor:appTheme.colors.primaryPale.withOpacity(0.8),
-                        percent: 0.4,
+                        percent: 0.8,
                         center: Text('80.0%',style: appTheme.textStyles.bodyBold.copyWith(color:appTheme.colors.fontLight),),
                         linearStrokeCap: LinearStrokeCap.roundAll,
                         progressColor:appTheme.colors.primary,
@@ -147,14 +147,13 @@ class Statistics extends StatelessWidget {
                   ),
                         IndentDivider(),
                   WidgetFactory.rowLabelValue(
-                      appTheme: appTheme, mediaQuery: mediaQuery, label: 'Total Amount', value: '250'),
+                      appTheme: appTheme, mediaQuery: mediaQuery, label: 'Target Amount', value: '250'),
                   IndentDivider(),
                   WidgetFactory.rowLabelValue(
-                      appTheme: appTheme, mediaQuery: mediaQuery, label: 'Total Deposite', value: '100'),
+                      appTheme: appTheme, mediaQuery: mediaQuery, label: 'Deposit', value: '100'),
                   IndentDivider(),
                   WidgetFactory.rowLabelValue(
-                      appTheme: appTheme, mediaQuery: mediaQuery, label: 'Total Remaining', value: '150'),
-              
+                      appTheme: appTheme, mediaQuery: mediaQuery, label: 'Remaining', value: '150'),
 
                 ],
               ),

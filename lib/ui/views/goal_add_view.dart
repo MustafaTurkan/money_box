@@ -97,11 +97,13 @@ class _GoalAddViewState extends State<GoalAddView> {
       key: formKey,
       child: Column(
         children: [
-          Spacer(flex:2,),
-          buildImage(),
           Spacer(),
-           IndentDivider(),
-           Spacer(),
+          buildImage(), 
+           Padding(
+              padding: const EdgeInsets.symmetric(vertical: Space.m),
+             child: IndentDivider(),
+           ),
+    
           FieldContainer(
             padding: const EdgeInsets.all(Space.m),
             labelText: localizer.title,
@@ -112,7 +114,7 @@ class _GoalAddViewState extends State<GoalAddView> {
           ),
           FieldContainer(
             padding: const EdgeInsets.all(Space.m),
-            labelText: localizer.goalAmount,
+            labelText:'Miktar', //localizer.goalAmount,
             child: TextFormField(
               controller: tecAmount,
               validator: MinAmountValidator(min: 0, errorText: localizer.mustBeGreaterThanZero),
@@ -122,7 +124,7 @@ class _GoalAddViewState extends State<GoalAddView> {
           ),
           FieldContainer(
             padding: const EdgeInsets.all(Space.m),
-            labelText: localizer.goalDate,
+            labelText:'Tarih',   //localizer.goalDate,
             child: DateField(
               value: currentDate,
               onChanged: (val) {
@@ -134,7 +136,7 @@ class _GoalAddViewState extends State<GoalAddView> {
           ),
           FieldContainer(
               padding: const EdgeInsets.all(Space.m),
-              labelText: localizer.savingPeriod,
+              labelText: 'Periyot',//localizer.savingPeriod,
               child: DropdownField<SavingPeriod>(
                 value: currentSavingPeriod,
                   items: SavingPeriod.values.map((e) {
@@ -149,7 +151,7 @@ class _GoalAddViewState extends State<GoalAddView> {
                         currentSavingPeriod=val;
                       });   
                   })),
-                   Spacer(flex:4,)
+                   Spacer(flex:2,)
         ],
       ),
     );
