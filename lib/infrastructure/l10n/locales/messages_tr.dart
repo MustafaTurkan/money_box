@@ -19,7 +19,7 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'tr';
 
-     static String m0(String value) => "${value} dan büyük olmalı"; 
+  static String m0(String value) => "${value} dan büyük olmalı";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(dynamic _) => <String, Function>{
@@ -35,7 +35,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Search": MessageLookupByLibrary.simpleMessage("Ara"),
         "Add Picture": MessageLookupByLibrary.simpleMessage("Resim Ekle"),
         "Title": MessageLookupByLibrary.simpleMessage("Başlık"),
-                "Required": MessageLookupByLibrary.simpleMessage("Zorunlu"),
+        "Required": MessageLookupByLibrary.simpleMessage("Zorunlu"),
         "Goal Amount": MessageLookupByLibrary.simpleMessage("Hedef Miktarı"),
         "Goal Date": MessageLookupByLibrary.simpleMessage("Hedef Tarihi"),
         "OK": MessageLookupByLibrary.simpleMessage("Tamam"),
@@ -48,7 +48,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "Information": MessageLookupByLibrary.simpleMessage("Bilgi"),
         "Question": MessageLookupByLibrary.simpleMessage("Soru"),
         "Message": MessageLookupByLibrary.simpleMessage("Mesaj"),
+        "periodless": MessageLookupByLibrary.simpleMessage("Periyotsuz"),
+        "daily": MessageLookupByLibrary.simpleMessage("Günlük"),
+        "weekly": MessageLookupByLibrary.simpleMessage("Haftalık"),
+        "monthly": MessageLookupByLibrary.simpleMessage("Aylık"),
+        "Saving Period": MessageLookupByLibrary.simpleMessage("Ekleme Periyodu"),
+        
         "Must be greater than zero": MessageLookupByLibrary.simpleMessage("Sıfırdan büyük olmalı"),
-         "mustBeGreaterThanValue": m0,
+        "mustBeGreaterThanValue": m0,
       };
 }

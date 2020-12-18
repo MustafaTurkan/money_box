@@ -1,260 +1,401 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/gestures.dart';
-import 'dart:math' as math;
 
-class LinearIndicator extends StatefulWidget {
-  const LinearIndicator({Key key, this.initialValue = 0.5, this.appearance = defaultAppearance})
-      : assert(initialValue != null),
-        assert(initialValue >= 0 && initialValue <= 1),
-        assert(appearance != null),
-        super(key: key);
+enum LinearStrokeCap { butt, round, roundAll }
 
-  final double initialValue;
+// ignore: must_be_immutable
+class LinearPercentIndicator extends StatefulWidget {
 
-  final LinearIndicatorAppearance appearance;
-  static const defaultAppearance = LinearIndicatorAppearance();
+  LinearPercentIndicator({
+    Key key,
+    this.fillColor = Colors.transparent,
+    this.percent = 0.0,
+    this.lineHeight = 5.0,
+    this.width,
+    this.backgroundColor = const Color(0xFFB8C7CB),
+    this.linearGradient,
+    Color progressColor,
+    this.animation = false,
+    this.animationDuration = 500,
+    this.animateFromLastPercent = false,
+    this.isRTL = false,
+    this.leading,
+    this.trailing,
+    this.center,
+    this.addAutomaticKeepAlive = true,
+    this.linearStrokeCap,
+    this.padding = const EdgeInsets.symmetric(horizontal: 10),
+    this.alignment = MainAxisAlignment.start,
+    this.maskFilter,
+    this.clipLinearGradient = false,
+    this.curve = Curves.linear,
+    this.restartAnimation = false,
+    this.onAnimationEnd,
+    this.widgetIndicator,
+  }) : super(key: key) {
+    if (linearGradient != null && progressColor != null) {
+      throw ArgumentError(
+          'Cannot provide both linearGradient and progressColor');
+    }
+    _progressColor = progressColor ?? Colors.red;
+
+    assert(curve != null);
+
+    if (percent < 0.0 || percent > 1.0) {
+      throw  Exception('Percent value must be a double between 0.0 and 1.0');
+    }
+  }
+
+  ///Percent value between 0.0 and 1.0
+  final double percent;
+  final double width;
+
+  ///Height of the line
+  final double lineHeight;
+
+  ///Color of the background of the Line , default = transparent
+  final Color fillColor;
+
+  ///First color applied to the complete line
+  final Color backgroundColor;
+
+  Color get progressColor => _progressColor;
+
+  Color _progressColor;
+
+  ///true if you want the Line to have animation
+  final bool animation;
+
+  ///duration of the animation in milliseconds, It only applies if animation attribute is true
+  final int animationDuration;
+
+  ///widget at the left of the Line
+  final Widget leading;
+
+  ///widget at the right of the Line
+  final Widget trailing;
+
+  ///widget inside the Line
+  final Widget center;
+
+  ///The kind of finish to place on the end of lines drawn, values supported: butt, round, roundAll
+  final LinearStrokeCap linearStrokeCap;
+
+  ///alignment of the Row (leading-widget-center-trailing)
+  final MainAxisAlignment alignment;
+
+  ///padding to the LinearPercentIndicator
+  final EdgeInsets padding;
+
+  /// set true if you want to animate the linear from the last percent value you set
+  final bool animateFromLastPercent;
+
+  /// If present, this will make the progress bar colored by this gradient.
+  ///
+  /// This will override [progressColor]. It is an error to provide both.
+  final LinearGradient linearGradient;
+
+  /// set false if you don't want to preserve the state of the widget
+  final bool addAutomaticKeepAlive;
+
+  /// set true if you want to animate the linear from the right to left (RTL)
+  final bool isRTL;
+
+  /// Creates a mask filter that takes the progress shape being drawn and blurs it.
+  final MaskFilter maskFilter;
+
+  /// Set true if you want to display only part of [linearGradient] based on percent value
+  /// (ie. create 'VU effect'). If no [linearGradient] is specified this option is ignored.
+  final bool clipLinearGradient;
+
+  /// set a linear curve animation type
+  final Curve curve;
+
+  /// set true when you want to restart the animation, it restarts only when reaches 1.0 as a value
+  /// defaults to false
+  final bool restartAnimation;
+
+  /// Callback called when the animation ends (only if `animation` is true)
+  final VoidCallback onAnimationEnd;
+
+  /// Display a widget indicator at the end of the progress. It only works when `animation` is true
+  final Widget widgetIndicator;
+
+
 
   @override
-  _LinearIndicatorState createState() => _LinearIndicatorState();
+  _LinearPercentIndicatorState createState() => _LinearPercentIndicatorState();
 }
 
-class _LinearIndicatorState extends State<LinearIndicator> with SingleTickerProviderStateMixin {
-  _LinearIndicatorCurvePainter _painter;
-
-  double _oldWidgetValue;
-  double _currentValue;
-  bool _animationCompleted = false;
-
+class _LinearPercentIndicatorState extends State<LinearPercentIndicator>
+    with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
+  AnimationController _animationController;
   Animation<double> _animation;
-  AnimationController _animController;
+  double _percent = 0;
+  final _containerKey = GlobalKey();
+  final _keyIndicator = GlobalKey();
+  double _containerWidth = 0;
+  double _containerHeight = 0;
+  double _indicatorWidth = 0;
+  double _indicatorHeight = 0;
+
+  @override
+  void dispose() {
+    _animationController?.dispose();
+    super.dispose();
+  }
 
   @override
   void initState() {
-    super.initState();
-    if (!widget.appearance.animationEnabled) {
-      return;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        setState(() {
+          _containerWidth = _containerKey.currentContext.size.width;
+          _containerHeight = _containerKey.currentContext.size.height;
+          if (_keyIndicator.currentContext != null) {
+            _indicatorWidth = _keyIndicator.currentContext.size.width;
+            _indicatorHeight = _keyIndicator.currentContext.size.height;
+          }
+        });
+      }
+    });
+    if (widget.animation) {
+      _animationController = AnimationController(
+          vsync: this,
+          duration: Duration(milliseconds: widget.animationDuration));
+      _animation = Tween<double>(begin: 0, end: widget.percent).animate(
+        CurvedAnimation(parent: _animationController, curve: widget.curve),
+      )..addListener(() {
+          setState(() {
+            _percent = _animation.value;
+          });
+          if (widget.restartAnimation && _percent == 1.0) {
+            _animationController.repeat(min: 0, max: 1);
+          }
+        });
+      _animationController.addStatusListener((status) {
+        if (widget.onAnimationEnd != null &&
+            status == AnimationStatus.completed) {
+          widget.onAnimationEnd();
+        }
+      });
+      _animationController.forward();
+    } else {
+      _updateProgress();
     }
-    _animController = AnimationController(vsync: this);
-    _animate();
+    super.initState();
+  }
+
+  void _checkIfNeedCancelAnimation(LinearPercentIndicator oldWidget) {
+    if (oldWidget.animation &&
+        !widget.animation &&
+        _animationController != null) {
+      _animationController.stop();
+    }
   }
 
   @override
-  void didUpdateWidget(LinearIndicator oldWidget) {
-    if (oldWidget.initialValue != widget.initialValue) {
-      _animate();
-    }
+  void didUpdateWidget(LinearPercentIndicator oldWidget) {
     super.didUpdateWidget(oldWidget);
-  }
-
-  int valueToDuration(double value, double previous) {
-    return ((value - previous).abs() * 1000).truncate();
-  }
-
-  void _animate() {
-    if (!widget.appearance.animationEnabled || _animController == null) {
-      _setupPainter();
-      return;
+    if (oldWidget.percent != widget.percent) {
+      if (_animationController != null) {
+        _animationController.duration =
+            Duration(milliseconds: widget.animationDuration);
+        _animation = Tween(
+                begin: widget.animateFromLastPercent ? oldWidget.percent : 0.0,
+                end: widget.percent)
+            .animate(
+          CurvedAnimation(parent: _animationController, curve: widget.curve),
+        );
+        _animationController.forward(from: 0);
+      } else {
+        _updateProgress();
+      }
     }
+    _checkIfNeedCancelAnimation(oldWidget);
+  }
 
-    _animationCompleted = false;
-
-    final duration = valueToDuration(widget.initialValue, _oldWidgetValue ?? 0);
-
-    _animController.duration = Duration(milliseconds: duration);
-
-    final curvedAnimation = CurvedAnimation(
-      parent: _animController,
-      curve: Curves.easeOut,
-    );
-
-    _animation = Tween<double>(begin: 0, end: 1).animate(curvedAnimation)
-      ..addListener(() {
-        setState(() {
-          if (!_animationCompleted && mounted) {
-            _currentValue = _animation.value * widget.initialValue;
-            // update painter and the on change closure
-            _setupPainter();
-          }
-        });
-      })
-      ..addStatusListener((status) {
-        if (status == AnimationStatus.completed) {
-          _animationCompleted = true;
-
-          _animController.reset();
-        }
-      });
-    _animController.forward();
+ void _updateProgress() {
+    setState(() {
+      _percent = widget.percent;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    /// If painter is null there is a need to setup it to prevent exceptions.
-    if (_painter == null) {
-      _setupPainter();
+    super.build(context);
+    var items = <Widget>[];
+    if (widget.leading != null) {
+      items.add(widget.leading);
     }
-    return Container(
-        child: CustomPaint(
-      painter: _painter,
-      child: Container(width: widget.appearance.width, height: widget.appearance.progressBarSize),
-    ));
+    final hasSetWidth = widget.width != null;
+    final percentPositionedHorizontal =
+        _containerWidth * _percent - _indicatorWidth / 3;
+    var containerWidget = Container(
+      width: hasSetWidth ? widget.width : double.infinity,
+      height: widget.lineHeight,
+      padding: widget.padding,
+      child: Stack(
+        clipBehavior: Clip.none,
+        children: [
+          CustomPaint(
+            key: _containerKey,
+            painter: LinearPainter(
+              isRTL: widget.isRTL,
+              progress: _percent,
+              progressColor: widget.progressColor,
+              linearGradient: widget.linearGradient,
+              backgroundColor: widget.backgroundColor,
+              linearStrokeCap: widget.linearStrokeCap,
+              lineWidth: widget.lineHeight,
+              maskFilter: widget.maskFilter,
+              clipLinearGradient: widget.clipLinearGradient,
+            ),
+            child: (widget.center != null)
+                ? Center(child: widget.center)
+                : Container(),
+          ),
+          if (widget.widgetIndicator != null && _indicatorWidth == 0)
+            Opacity(
+              opacity: 0,
+              key: _keyIndicator,
+              child: widget.widgetIndicator,
+            ),
+          if (widget.widgetIndicator != null &&
+              _containerWidth > 0 &&
+              _indicatorWidth > 0)
+            Positioned(
+              right: widget.isRTL ? percentPositionedHorizontal : null,
+              left: !widget.isRTL ? percentPositionedHorizontal : null,
+              top: _containerHeight / 2 - _indicatorHeight,
+              child: widget.widgetIndicator,
+            ),
+        ],
+      ),
+    );
+
+    if (hasSetWidth) {
+      items.add(containerWidget);
+    } else {
+      items.add(Expanded(
+        child: containerWidget,
+      ));
+    }
+    if (widget.trailing != null) {
+      items.add(widget.trailing);
+    }
+
+    return Material(
+      color: Colors.transparent,
+      child: Container(
+        color: widget.fillColor,
+        child: Row(
+          mainAxisAlignment: widget.alignment,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: items,
+        ),
+      ),
+    );
   }
 
   @override
-  void dispose() {
-    _animController?.dispose();
-    super.dispose();
-  }
+  bool get wantKeepAlive => widget.addAutomaticKeepAlive;
+}
 
-  void _setupPainter() {
-    var defaultAngle = _currentValue ?? widget.initialValue;
-    if (_oldWidgetValue != null) {
-      if (_oldWidgetValue != widget.initialValue) {
-        defaultAngle = widget.initialValue;
-      }
+class LinearPainter extends CustomPainter {
+    LinearPainter({
+    this.lineWidth,
+    this.progress,
+    this.isRTL,
+    this.progressColor,
+    this.backgroundColor,
+    this.linearStrokeCap = LinearStrokeCap.butt,
+    this.linearGradient,
+    this.maskFilter,
+    this.clipLinearGradient,
+  }) {
+    _paintBackground.color = backgroundColor;
+    _paintBackground.style = PaintingStyle.stroke;
+    _paintBackground.strokeWidth = lineWidth;
+
+    _paintLine.color = progress.toString() == '0.0'
+        ? progressColor.withOpacity(0)
+        : progressColor;
+    _paintLine.style = PaintingStyle.stroke;
+    _paintLine.strokeWidth = lineWidth;
+
+    if (linearStrokeCap == LinearStrokeCap.round) {
+      _paintLine.strokeCap = StrokeCap.round;
+    } else if (linearStrokeCap == LinearStrokeCap.butt) {
+      _paintLine.strokeCap = StrokeCap.butt;
+    } else {
+      _paintLine.strokeCap = StrokeCap.round;
+      _paintBackground.strokeCap = StrokeCap.round;
     }
-    _painter = _LinearIndicatorCurvePainter(value: defaultAngle, appearance: widget.appearance);
-    _oldWidgetValue = widget.initialValue;
   }
-}
+  final Paint _paintBackground =  Paint();
+  final Paint _paintLine =  Paint();
+  final double lineWidth;
+  final double progress;
+  final bool isRTL;
+  final Color progressColor;
+  final Color backgroundColor;
+  final LinearStrokeCap linearStrokeCap;
+  final LinearGradient linearGradient;
+  final MaskFilter maskFilter;
+  final bool clipLinearGradient;
 
-class LinearIndicatorAppearance {
-  const LinearIndicatorAppearance(
-      {this.customColors,
-      this.width = double.infinity,
-      this.progressBarHeight,
-      this.trackHeight,
-      this.shadowHeight,
-      this.animationEnabled = true});
 
-  final double width;
-  final bool animationEnabled;
-
-  final LinearIndicatorColors customColors;
-  final double trackHeight;
-  final double progressBarHeight;
-  final double shadowHeight;
-
-  double get trackSize => trackHeight ?? progressBarSize / 4;
-  double get progressBarSize => progressBarHeight ?? width / 10;
-  double get shadowSize => shadowHeight ?? progressBarSize * 1.4;
-
-  Color get _customTrackColor => customColors?.trackColor;
-  List<Color> get _customProgressBarColors {
-    if (customColors != null) {
-      if (customColors.progressBarColors != null) {
-        return customColors.progressBarColors;
-      } else if (customColors.progressBarColor != null) {
-        return [customColors.progressBarColor, customColors.progressBarColor];
-      }
-    }
-    return null;
-  }
-
-  Color get _customShadowColor => customColors?.shadowColor;
-
-  double get _customShadowMaxOpacity => customColors?.shadowMaxOpacity;
-
-  double get _customShadowStep => customColors?.shadowStep;
-
-  bool get _hideShadow => customColors?.hideShadow;
-
-  Color get trackColor => _customTrackColor ?? Color.fromRGBO(220, 190, 251, 1);
-
-  List<Color> get progressBarColors =>
-      _customProgressBarColors ??
-      [
-        Color.fromRGBO(30, 0, 59, 1),
-        Color.fromRGBO(236, 0, 138, 1),
-        Color.fromRGBO(98, 133, 218, 1),
-      ];
-
-  bool get hideShadow => _hideShadow ?? false;
-
-  Color get shadowColor => _customShadowColor ?? Color.fromRGBO(44, 87, 192, 1);
-
-  double get shadowMaxOpacity => _customShadowMaxOpacity ?? 0.2;
-
-  double get shadowStep => _customShadowStep;
-}
-
-// TODO(erkan):  progressBarColors yerine linear gradient alabilir.
-// renk başlangıç ve bitişlerini ayarlayabilmek için
-// shadow step ? gereksiz ise kaldırılacak.
-class LinearIndicatorColors {
-  LinearIndicatorColors({
-    this.trackColor,
-    this.progressBarColor,
-    this.progressBarColors,
-    this.hideShadow,
-    this.shadowColor,
-    this.shadowMaxOpacity,
-    this.shadowStep,
-  });
-
-  final Color trackColor;
-  final Color progressBarColor;
-  final List<Color> progressBarColors;
-  final bool hideShadow;
-  final Color shadowColor;
-  final double shadowMaxOpacity;
-  final double shadowStep;
-}
-
-class _LinearIndicatorCurvePainter extends CustomPainter {
-  _LinearIndicatorCurvePainter({this.appearance, this.value});
-
-  final double value;
-  final LinearIndicatorAppearance appearance;
 
   @override
   void paint(Canvas canvas, Size size) {
-    final trackPaint = Paint()
-      ..strokeCap = StrokeCap.round
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = appearance.trackSize
-      ..color = appearance.trackColor;
-    final halfHeight = size.height / 2;
-    final start = Offset(0, halfHeight);
-    final end = Offset(size.width, halfHeight);
+    final start = Offset(0, size.height / 2);
+    final end = Offset(size.width, size.height / 2);
+    canvas.drawLine(start, end, _paintBackground);
 
-    final progressValue = size.width * (value ?? 0);
-    canvas.drawLine(start, end, trackPaint);
-
-    if (!appearance.hideShadow) {
-      final shadowStep = appearance?.shadowStep != null
-          ? appearance.shadowStep
-          : math.max(1, (appearance.shadowSize - appearance.progressBarSize) ~/ 10);
-      final maxOpacity = math.min(1, appearance.shadowMaxOpacity);
-      final repetitions = math.max(1, (appearance.shadowSize - appearance.progressBarSize) ~/ shadowStep);
-      final opacityStep = maxOpacity / repetitions;
-      final shadowPaint = Paint()
-        ..strokeCap = StrokeCap.round
-        ..style = PaintingStyle.stroke;
-      for (int i = 1; i <= repetitions; i++) {
-        shadowPaint.strokeWidth = appearance.progressBarSize + i * shadowStep;
-        shadowPaint.color = appearance.shadowColor.withOpacity(maxOpacity - (opacityStep * (i - 1)) as double);
-        canvas.drawLine(start, Offset(progressValue, halfHeight), shadowPaint);
-      }
+    if (maskFilter != null) {
+      _paintLine.maskFilter = maskFilter;
     }
 
-    final progressBarRect = Rect.fromLTWH(0, 0, size.width, size.width);
-    final progressBarGradient = LinearGradient(
-      tileMode: TileMode.mirror,
-      colors: appearance.progressBarColors,
+    if (isRTL) {
+      final xProgress = size.width - size.width * progress;
+      if (linearGradient != null) {
+        _paintLine.shader = _createGradientShaderRightToLeft(size, xProgress);
+      }
+      canvas.drawLine(end, Offset(xProgress, size.height / 2), _paintLine);
+    } else {
+      final xProgress = size.width * progress;
+      if (linearGradient != null) {
+        _paintLine.shader = _createGradientShaderLeftToRight(size, xProgress);
+      }
+      canvas.drawLine(start, Offset(xProgress, size.height / 2), _paintLine);
+    }
+  }
+
+  Shader _createGradientShaderRightToLeft(Size size, double xProgress) {
+    Offset shaderEndPoint =
+        clipLinearGradient ? Offset.zero : Offset(xProgress, size.height);
+    return linearGradient.createShader(
+      Rect.fromPoints(
+        Offset(size.width, size.height),
+        shaderEndPoint,
+      ),
     );
+  }
 
-    final progressBarPaint = Paint()
-      ..shader = progressBarGradient.createShader(progressBarRect)
-      ..strokeCap = StrokeCap.round
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = appearance.progressBarSize;
-
-    canvas.drawLine(start, Offset(progressValue, halfHeight), progressBarPaint);
+  Shader _createGradientShaderLeftToRight(Size size, double xProgress) {
+    Offset shaderEndPoint = clipLinearGradient
+        ? Offset(size.width, size.height)
+        : Offset(xProgress, size.height);
+    return linearGradient.createShader(
+      Rect.fromPoints(
+        Offset.zero,
+        shaderEndPoint,
+      ),
+    );
   }
 
   @override
-  bool shouldRepaint(_LinearIndicatorCurvePainter oldDelegate) {
-    return oldDelegate.value != value;
+  bool shouldRepaint(CustomPainter oldDelegate) {
+    return true;
   }
 }

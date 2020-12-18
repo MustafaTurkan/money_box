@@ -10,3 +10,5 @@ export 'background_hint.dart';
 export 'fields/fields.dart';
 export 'indent_divider.dart';
 export 'dialogs/dialogs.dart';
+export 'titles.dart';
+export 'slivers/fixed_height_sliver_persistent_header_delegate.dart';

@@ -51,10 +51,15 @@ class Localizer {
   String get question => Intl.message('Question');
   String get message => Intl.message('Message');
   String get requiredValue => Intl.message('Required');
-   String get mustBeGreaterThanZero => Intl.message('Must be greater than zero');
-
+  String get mustBeGreaterThanZero => Intl.message('Must be greater than zero');
+  String get periodless => Intl.message('periodless');
+  String get savingPeriod => Intl.message('Saving Period');
+  String get daily => Intl.message('daily');
+  String get weekly => Intl.message('weekly');
+  String get monthly => Intl.message('monthly');
   String mustBeGreaterThanValue(String value) =>
       Intl.message('Must be greater than $value', name: 'mustBeGreaterThanValue', args: [value]);
+
   //dynamic text translate
   String translate(String text,
       {String desc = '',

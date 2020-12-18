@@ -31,6 +31,7 @@ class _GoalAddViewState extends State<GoalAddView> {
   MediaQueryData mediaQuery;
   WaitDialog waitDialog;
   DateTime currentDate = DateTime.now();
+  SavingPeriod currentSavingPeriod=SavingPeriod.periodless;
 
   @override
   void didChangeDependencies() {
@@ -96,7 +97,11 @@ class _GoalAddViewState extends State<GoalAddView> {
       key: formKey,
       child: Column(
         children: [
+          Spacer(flex:2,),
           buildImage(),
+          Spacer(),
+           IndentDivider(),
+           Spacer(),
           FieldContainer(
             padding: const EdgeInsets.all(Space.m),
             labelText: localizer.title,
@@ -112,7 +117,7 @@ class _GoalAddViewState extends State<GoalAddView> {
               controller: tecAmount,
               validator: MinAmountValidator(min: 0, errorText: localizer.mustBeGreaterThanZero),
               keyboardType: TextInputType.number,
-              inputFormatters: [ MoneyInputFormatter()],
+              inputFormatters: [MoneyInputFormatter()],
             ),
           ),
           FieldContainer(
@@ -127,6 +132,24 @@ class _GoalAddViewState extends State<GoalAddView> {
               },
             ),
           ),
+          FieldContainer(
+              padding: const EdgeInsets.all(Space.m),
+              labelText: localizer.savingPeriod,
+              child: DropdownField<SavingPeriod>(
+                value: currentSavingPeriod,
+                  items: SavingPeriod.values.map((e) {
+                    return DropdownMenuItem<SavingPeriod>(
+                        value: e,
+                        child: Text(
+                      localizer.translate(Enum.getName(e)),
+                    ));
+                  }).toList(),
+                  onChanged: (val) {
+                      setState(() {
+                        currentSavingPeriod=val;
+                      });   
+                  })),
+                   Spacer(flex:4,)
         ],
       ),
     );
@@ -191,8 +214,12 @@ class _GoalAddViewState extends State<GoalAddView> {
             targetAmount: tecAmount.text.amountValue(),
             title: tecTitle.text,
             img: image,
+            frequency:currentSavingPeriod.index,
             currency: 'TRY',
           ));
     }
   }
 }
+
+
+ 

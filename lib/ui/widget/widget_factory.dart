@@ -1,4 +1,4 @@
-import 'dart:math' as math;
+//import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:money_box/ui/ui.dart';
 import 'package:money_box/infrastructure/infrastructure.dart';
@@ -48,7 +48,7 @@ class WidgetFactory {
     return indicator;
   }
 
-  static Widget circularIndicator(
+ /* static Widget circularIndicator(
       {@required AppTheme appTheme,
       double size,
       double progressBarWidth = 1,
@@ -109,6 +109,8 @@ class WidgetFactory {
     );
   }
 
+  */
+
   static Widget emptyWidget() {
     return SizedBox.shrink();
   }
@@ -122,32 +124,35 @@ class WidgetFactory {
       TextStyle valueStyle}) {
     return Padding(
       padding: const EdgeInsets.all(Space.m),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          ConstrainedBox(
-              constraints: BoxConstraints(
-                maxWidth: mediaQuery.size.shortestSidePercent(80),
-                minWidth: mediaQuery.size.shortestSidePercent(20),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.only(right: Space.s),
-                child: Text(label,
-                    overflow: TextOverflow.ellipsis, maxLines: 2, style: labelStyle ?? appTheme.textStyles.body),
-              )),
-          Expanded(
-              child: Padding(
-            padding: const EdgeInsets.only(left: Space.s),
-            child: Align(
-                alignment: Alignment.centerRight,
-                child: Text(value,
-                    textAlign: TextAlign.right,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 2,
-                    style: valueStyle ?? appTheme.textStyles.bodyBold)),
-          )),
-        ],
+      child: Container(
+        color: appTheme.colors.canvasLight,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            ConstrainedBox(
+                constraints: BoxConstraints(
+                  maxWidth: mediaQuery.size.shortestSidePercent(80),
+                  minWidth: mediaQuery.size.shortestSidePercent(20),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(right: Space.s),
+                  child: Text(label,
+                      overflow: TextOverflow.ellipsis, maxLines: 2, style: labelStyle ?? appTheme.textStyles.body),
+                )),
+            Expanded(
+                child: Padding(
+              padding: const EdgeInsets.only(left: Space.s),
+              child: Align(
+                  alignment: Alignment.centerRight,
+                  child: Text(value,
+                      textAlign: TextAlign.right,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
+                      style: valueStyle ?? appTheme.textStyles.bodyBold)),
+            )),
+          ],
+        ),
       ),
     );
   }

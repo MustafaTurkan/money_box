@@ -44,3 +44,5 @@ class Goal {
         GoalString.frequency: frequency,
       };
 }
+
+enum SavingPeriod { periodless, daily, weekly, monthly }

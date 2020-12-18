@@ -18,7 +18,7 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
-     static String m0(String value) => "Must be greater than ${value}"; 
+  static String m0(String value) => "Must be greater than ${value}";
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(dynamic _) => <String, Function>{
         "Money Box": MessageLookupByLibrary.simpleMessage("Money Box"),
@@ -45,8 +45,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "Information": MessageLookupByLibrary.simpleMessage("Information"),
         "Question": MessageLookupByLibrary.simpleMessage("Question"),
         "Message": MessageLookupByLibrary.simpleMessage("Message"),
-                "Required": MessageLookupByLibrary.simpleMessage("Required"),
-                        "Must be greater than zero": MessageLookupByLibrary.simpleMessage("Must be greater than zero"),
-                  "mustBeGreaterThanValue": m0,
+        "periodless": MessageLookupByLibrary.simpleMessage("Periodless"),
+        "daily": MessageLookupByLibrary.simpleMessage("Daily"),
+        "weekly": MessageLookupByLibrary.simpleMessage("Weekly"),
+        "monthly": MessageLookupByLibrary.simpleMessage("Monthly"),
+        "Required": MessageLookupByLibrary.simpleMessage("Required"),
+        "Saving Period": MessageLookupByLibrary.simpleMessage("Saving Period"),
+        "Must be greater than zero": MessageLookupByLibrary.simpleMessage("Must be greater than zero"),
+        "mustBeGreaterThanValue": m0,
       };
 }
