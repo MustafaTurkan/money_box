@@ -67,7 +67,7 @@ class _GoalAddViewState extends State<GoalAddView> {
                   }
                   waitDialog.hide();
                   if (state is GoalAddedSucces) {
-                    navigator.pop(context);
+                    navigator.pop(context,result:true);
                   }
                   if (state is GoalAddedFail) {
                     await MessageDialog.error(context: context, message: state.message);
@@ -151,7 +151,7 @@ class _GoalAddViewState extends State<GoalAddView> {
                         currentSavingPeriod=val;
                       });   
                   })),
-                   Spacer(flex:2,)
+                   Spacer(flex:4,)
         ],
       ),
     );
@@ -216,6 +216,7 @@ class _GoalAddViewState extends State<GoalAddView> {
             targetAmount: tecAmount.text.amountValue(),
             title: tecTitle.text,
             img: image,
+            targetDate:currentDate,
             frequency:currentSavingPeriod.index,
             currency: 'TRY',
           ));
@@ -224,4 +225,4 @@ class _GoalAddViewState extends State<GoalAddView> {
 }
 
 
- 
+

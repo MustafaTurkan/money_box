@@ -70,7 +70,7 @@ class AppWidget extends StatelessWidget {
           builder: _builder,
           navigatorKey: AppNavigator.key,
           navigatorObservers: [AppNavigator.routeObserver],
-          home: GoalListView(),
+          home: HomeView(),
         ));
       },
     );

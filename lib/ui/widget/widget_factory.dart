@@ -48,68 +48,7 @@ class WidgetFactory {
     return indicator;
   }
 
- /* static Widget circularIndicator(
-      {@required AppTheme appTheme,
-      double size,
-      double progressBarWidth = 1,
-      double maxValue = 0,
-      double value = 0,
-      TextStyle mainLabelStyle,
-      List<Color> colors,
-      bool animate = true}) {
-    return CircularIndicator(
-      appearance: CircularIndicatorAppearance(
-          progressBarWidth: progressBarWidth,
-          customColors: CircularIndicatorColors(
-            trackColor: appTheme.colors.fontPale.withOpacity(0.5),
-            progressBarColors: colors ??
-                [
-                  appTheme.colors.primary.withOpacity(0.5),
-                  appTheme.colors.success,
-                ],
-          ),
-          infoProperties: CircularIndicatorInfoProperties(
-              modifier: (progressValue) {
-                final valueInt = progressValue.toInt();
-                final maxInt = maxValue.toInt();
-                return '$valueInt/$maxInt';
-              },
-              mainLabelStyle: mainLabelStyle),
-          startAngle: 180,
-          angleRange: 360,
-          size: size,
-          animationEnabled: animate),
-      max: maxValue,
-      min: 0,
-      initialValue: math.min(math.max(0, value), maxValue),
-    );
-  }
 
-  static Widget linearProgressIndicator(
-      {@required AppTheme appTheme,
-      @required double progressBarHeight,
-      @required double value,
-      double width,
-      List<Color> colors,
-      bool animationEnabled = true}) {
-    return LinearIndicator(
-      appearance: LinearIndicatorAppearance(
-          width: width,
-          progressBarHeight: progressBarHeight,
-          customColors: LinearIndicatorColors(
-            trackColor: appTheme.colors.fontPale.withOpacity(0.5),
-            progressBarColors: colors ??
-                [
-                  appTheme.colors.primary.withOpacity(0.5),
-                  appTheme.colors.success,
-                ],
-          ),
-          animationEnabled: animationEnabled ?? false),
-      initialValue: value,
-    );
-  }
-
-  */
 
   static Widget emptyWidget() {
     return SizedBox.shrink();
