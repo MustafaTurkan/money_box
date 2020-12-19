@@ -53,6 +53,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Saving Period": MessageLookupByLibrary.simpleMessage("Period"),
         "Total": MessageLookupByLibrary.simpleMessage("Total"),
         "Remaining": MessageLookupByLibrary.simpleMessage("Remaining"),
+       "Note": MessageLookupByLibrary.simpleMessage("Note"),
+
                 "Increment Money": MessageLookupByLibrary.simpleMessage("Increment Money"),
         "Decrement Money": MessageLookupByLibrary.simpleMessage("Decrement Money"),
 

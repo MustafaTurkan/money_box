@@ -73,17 +73,15 @@ class _GoalAddViewState extends State<GoalAddView> {
                     await MessageDialog.error(context: context, message: state.message);
                   }
                 },
-                child: Container(
-                  child: CustomScrollView(
-                    slivers: [
-                      SliverFillRemaining(
-                        hasScrollBody: false,
-                        child: ContentContainer(
-                          child: buildForm(),
-                        ),
-                      )
-                    ],
-                  ),
+                child: CustomScrollView(
+                  slivers: [
+                    SliverFillRemaining(
+                      hasScrollBody: false,
+                      child: ContentContainer(
+                        child: buildForm(),
+                      ),
+                    )
+                  ],
                 ),
               ),
               floatingActionButton: buildGoalAddButton(context),
