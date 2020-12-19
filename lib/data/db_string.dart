@@ -20,10 +20,11 @@ class GoalString {
 class MobilityString {
   static const String tableName = 'mobility';
   static const String id = 'id';
+  static const String type = 'type';
   static const String goalId = 'goalId';
   static const String title = 'title';
   static const String transactionDate = 'transactionDate';
   static const String amount = 'amount';
-  static const String createTable = 'CREATE TABLE $tableName ($id INTEGER PRIMARY KEY AUTOINCREMENT, $title TEXT, $goalId INTEGER, $transactionDate TEXT, $amount REAL)';
+  static const String createTable = 'CREATE TABLE $tableName ($id INTEGER PRIMARY KEY AUTOINCREMENT, $title TEXT, $goalId INTEGER, $transactionDate TEXT, $amount REAL,$type INTEGER)';
 
 }

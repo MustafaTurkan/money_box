@@ -30,7 +30,7 @@ class Goal {
   final Uint8List img;
   final DateTime targetDate;
   final double targetAmount;
-  final double deposited;
+        double deposited;
   final String currency;
   final int frequency;
 

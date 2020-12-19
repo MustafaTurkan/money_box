@@ -1,2 +1,2 @@
-export 'home/home.dart';
-export 'goal_add_view.dart';
+export 'goal/goal.dart';
+export 'contribution/contribution_add_view.dart';

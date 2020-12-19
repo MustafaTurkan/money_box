@@ -13,9 +13,12 @@ class GoalListTile extends StatefulWidget {
 }
 
 class _GoalListTileState extends State<GoalListTile> {
+  _GoalListTileState() : navigator = AppService.get<AppNavigator>();
+
   MediaQueryData mediaQuery;
   Localizer localizer;
   AppTheme appTheme;
+  AppNavigator navigator;
 
   @override
   void didChangeDependencies() {
@@ -32,7 +35,7 @@ class _GoalListTileState extends State<GoalListTile> {
         child: Column(
           children: [
             ListTile(
-                leading:GoalTileImage(goal: widget.goal),
+                leading: GoalTileImage(goal: widget.goal),
                 title: Row(
                   children: [
                     Expanded(
@@ -52,8 +55,16 @@ class _GoalListTileState extends State<GoalListTile> {
                               AppIcons.minusCircleOutline,
                               color: appTheme.colors.error,
                             ),
-                            onPressed: () {})),
-                    Expanded(flex: 1, child: IconButton(icon: Icon(AppIcons.plusCircleOutline), onPressed: () {}))
+                            onPressed: () async {
+                              await onDecrement(context);
+                            })),
+                    Expanded(
+                        flex: 1,
+                        child: IconButton(
+                            icon: Icon(AppIcons.plusCircleOutline),
+                            onPressed: () async {
+                              await onIncrement(context);
+                            }))
                   ],
                 ),
                 subtitle: Text(Formatter.dateToString(widget.goal.targetDate))),
@@ -71,5 +82,16 @@ class _GoalListTileState extends State<GoalListTile> {
             showValue: true,
             totalValue: widget.goal.targetAmount,
             value: widget.goal.deposited));
+  }
+
+  Future<void> onDecrement(BuildContext context) async {
+    var mobility = await navigator.pushContributionAdd(context, MobilityType.decrement);
+    if (mobility != null) {}
+  }
+
+  Future<void> onIncrement(BuildContext context) async {
+    var mobility = await navigator.pushContributionAdd(context, MobilityType.increment);
+
+    if (mobility != null) {}
   }
 }

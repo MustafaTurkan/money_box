@@ -31,7 +31,7 @@ class _GoalAddViewState extends State<GoalAddView> {
   MediaQueryData mediaQuery;
   WaitDialog waitDialog;
   DateTime currentDate = DateTime.now();
-  SavingPeriod currentSavingPeriod=SavingPeriod.periodless;
+  SavingPeriod currentSavingPeriod = SavingPeriod.periodless;
 
   @override
   void didChangeDependencies() {
@@ -67,7 +67,7 @@ class _GoalAddViewState extends State<GoalAddView> {
                   }
                   waitDialog.hide();
                   if (state is GoalAddedSucces) {
-                    navigator.pop(context,result:true);
+                    navigator.pop(context, result: true);
                   }
                   if (state is GoalAddedFail) {
                     await MessageDialog.error(context: context, message: state.message);
@@ -98,12 +98,11 @@ class _GoalAddViewState extends State<GoalAddView> {
       child: Column(
         children: [
           Spacer(),
-          buildImage(), 
-           Padding(
-              padding: const EdgeInsets.symmetric(vertical: Space.m),
-             child: IndentDivider(),
-           ),
-    
+          buildImage(),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: Space.m),
+            child: IndentDivider(),
+          ),
           FieldContainer(
             padding: const EdgeInsets.all(Space.m),
             labelText: localizer.title,
@@ -114,17 +113,17 @@ class _GoalAddViewState extends State<GoalAddView> {
           ),
           FieldContainer(
             padding: const EdgeInsets.all(Space.m),
-            labelText:localizer.goalAmount,
+            labelText: localizer.goalAmount,
             child: TextFormField(
               controller: tecAmount,
               validator: MinAmountValidator(min: 0, errorText: localizer.mustBeGreaterThanZero),
               keyboardType: TextInputType.number,
-              inputFormatters: [MoneyInputFormatter()],
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
             ),
           ),
           FieldContainer(
             padding: const EdgeInsets.all(Space.m),
-            labelText:localizer.goalDate,
+            labelText: localizer.goalDate,
             child: DateField(
               value: currentDate,
               onChanged: (val) {
@@ -138,20 +137,22 @@ class _GoalAddViewState extends State<GoalAddView> {
               padding: const EdgeInsets.all(Space.m),
               labelText: localizer.savingPeriod,
               child: DropdownField<SavingPeriod>(
-                value: currentSavingPeriod,
+                  value: currentSavingPeriod,
                   items: SavingPeriod.values.map((e) {
                     return DropdownMenuItem<SavingPeriod>(
                         value: e,
                         child: Text(
-                      localizer.translate(Enum.getName(e)),
-                    ));
+                          localizer.translate(Enum.getName(e)),
+                        ));
                   }).toList(),
                   onChanged: (val) {
-                      setState(() {
-                        currentSavingPeriod=val;
-                      });   
+                    setState(() {
+                      currentSavingPeriod = val;
+                    });
                   })),
-                   Spacer(flex:4,)
+          Spacer(
+            flex: 4,
+          )
         ],
       ),
     );
@@ -213,16 +214,13 @@ class _GoalAddViewState extends State<GoalAddView> {
   Future<void> onSaveGoal(BuildContext context) async {
     if (formKey.currentState.validate()) {
       await context.getBloc<GoalAddCubit>().add(Goal(
-            targetAmount: tecAmount.text.amountValue(),
+            targetAmount: double.parse(tecAmount.text),
             title: tecTitle.text,
             img: image,
-            targetDate:currentDate,
-            frequency:currentSavingPeriod.index,
+            targetDate: currentDate,
+            frequency: currentSavingPeriod.index,
             currency: 'TRY',
           ));
     }
   }
 }
-
-
-

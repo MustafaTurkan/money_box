@@ -60,8 +60,9 @@ class Localizer {
   String get total => Intl.message('Total');
   String get deposited => Intl.message('Deposited');
     String get remaining => Intl.message('Remaining');
-  
     
+      String get incrementMoney => Intl.message('Increment Money');
+      String get decrementMoney => Intl.message('Decrement Money');
   String mustBeGreaterThanValue(String value) =>
       Intl.message('Must be greater than $value', name: 'mustBeGreaterThanValue', args: [value]);
 

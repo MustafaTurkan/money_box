@@ -56,6 +56,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Total": MessageLookupByLibrary.simpleMessage("Toplam"),
         "Deposited": MessageLookupByLibrary.simpleMessage("Biriken"),
         "Remaining": MessageLookupByLibrary.simpleMessage("Kalan"),
+        "Increment Money": MessageLookupByLibrary.simpleMessage("Para Artır"),
+        "Decrement Money": MessageLookupByLibrary.simpleMessage("Para Azalt"),
         "Must be greater than zero": MessageLookupByLibrary.simpleMessage("Sıfırdan büyük olmalı"),
         "mustBeGreaterThanValue": m0,
       };

@@ -5,5 +5,8 @@ class MobilityRepository implements IMobilityRepository {
   MobilityRepository(this.moneyBoxDb);
   final MoneyBoxDb moneyBoxDb;
 
-
+  @override
+  Future<void> add(Mobility mobility) async {
+    await moneyBoxDb.insertMobility(mobility);
+  }
 }

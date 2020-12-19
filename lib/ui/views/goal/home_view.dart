@@ -8,7 +8,6 @@ import 'package:money_box/ui/ui.dart';
 
 class HomeView extends StatefulWidget {
   HomeView({Key key}) : super(key: key);
-
   @override
   _HomeViewState createState() => _HomeViewState();
 }
@@ -74,7 +73,7 @@ class _HomeViewState extends State<HomeView> {
   }
 
   Widget buildError() {
-    return Scaffold(
+    return Scaffold(                                                                                           
         appBar: AppBar(
           leading: buildSettingButton(),
           centerTitle: true,
@@ -83,23 +82,7 @@ class _HomeViewState extends State<HomeView> {
         body: BackgroundHint.unExpectedError(context));
   }
 
-  Widget buildEmpty() {
-    return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          leading: buildSettingButton(),
-          title: Text(localizer.appName),
-        ),
-        body: BackgroundHint(
-          iconData: AppIcons.piggyBank,
-          message: localizer.dontHaveActiveGoals,
-        ));
-  }
-
   Widget buildBody(List<Goal> intialGoals) {
-    if (intialGoals.isNullOrEmpty()) {
-      return buildEmpty();
-    }
     return BlocProvider<GoalListCubit>(
       create: (context) => GoalListCubit(goalRepository: repository, goals: intialGoals),
       child: Scaffold(
@@ -116,6 +99,13 @@ class _HomeViewState extends State<HomeView> {
             }
 
             if (state is GoalListSuccesed) {
+              if (state.goals.isNullOrEmpty()) {
+                return BackgroundHint(
+                  iconData: AppIcons.piggyBank,
+                  message: localizer.dontHaveActiveGoals,
+                );
+              }
+
               return CustomScrollView(
                 controller: scrollontroller,
                 slivers: [

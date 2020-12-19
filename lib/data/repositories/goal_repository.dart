@@ -16,4 +16,14 @@ class GoalRepository implements IGoalRepository{
      await moneyBoxDb.insertGoal(goal);
   }
 
+  @override
+  Future<void> edit(Goal goal)async {
+    await moneyBoxDb.updateGoal(goal);
+  }
+
+  @override
+  Future<Goal> getGoal(int id) async{
+    return moneyBoxDb.getGoal(id);
+  }
+
 }
