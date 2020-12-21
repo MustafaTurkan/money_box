@@ -3,28 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:money_box/ui/ui.dart';
 import 'package:money_box/infrastructure/infrastructure.dart';
 
-class AmountRateIndicator extends StatelessWidget {
-  const AmountRateIndicator({Key key,this.showValue=false,@required this.width,@required this.totalValue,@required this.value}) : super(key: key);
+class AmountPercentLineerIndicator extends StatelessWidget {
+  const AmountPercentLineerIndicator({Key key,@required this.width,@required this.totalValue,@required this.value}) : super(key: key);
   
   final double width;
   final double totalValue;
   final double value;
-  final bool showValue;
+
 
   @override
   Widget build(BuildContext context) {
     var appTheme=context.getTheme();
-    String text;
-
-    if(showValue)
-    {
-      text='%${calculateRate(value, totalValue).toString()} ($value/$totalValue)';
-    }
-    else
-    {
-        text='%${calculateRate(value, totalValue).toString()}';
-    }
-
     return LinearPercentIndicator(
                       width: width,
                       animation: true,
@@ -33,7 +22,7 @@ class AmountRateIndicator extends StatelessWidget {
                       backgroundColor: appTheme.colors.primaryPale.withOpacity(0.8),
                       percent: value / totalValue,
                       center: Text(
-                        '$text',
+                       '%${calculateRate(value, totalValue).toString()}',
                         style: appTheme.textStyles.bodyBold.copyWith(color: appTheme.colors.fontLight),
                       ),
                       linearStrokeCap: LinearStrokeCap.roundAll,

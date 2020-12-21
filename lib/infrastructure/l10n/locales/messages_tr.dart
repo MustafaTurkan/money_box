@@ -25,7 +25,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(dynamic _) => <String, Function>{
         "Money Box": MessageLookupByLibrary.simpleMessage("Kumbara"),
         "Goals": MessageLookupByLibrary.simpleMessage("Hedefler"),
-        "Completed": MessageLookupByLibrary.simpleMessage("Tamamlananlar"),
+        "Completed": MessageLookupByLibrary.simpleMessage("Tamamlanadı"),
         "Record not found!": MessageLookupByLibrary.simpleMessage("Kayıt bulunamadı!"),
         "No data": MessageLookupByLibrary.simpleMessage("Veri yok"),
         "Add Goal": MessageLookupByLibrary.simpleMessage("Hedef Ekle"),

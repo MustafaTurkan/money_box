@@ -74,18 +74,24 @@ class ContentTitle extends StatelessWidget {
      Container(
         decoration: decoration,
         color: decoration == null ? backgroundColor : null,
-        alignment: Alignment.centerLeft,
+      //  alignment: Alignment.centerLeft,
         padding: padding,
         child: Row(
           children: <Widget>[
-            icon,
+            Padding(
+              padding: const EdgeInsets.only(right: Space.s),
+              child: icon,
+            ),
+
             Expanded(
+              
                 child: Text(
               title,
               style: appTheme.textStyles.subtitleBold.copyWith(color: appTheme.colors.primary),
               maxLines: maxLines,
               overflow: TextOverflow.ellipsis,
             )),
+
             if(!leadingText.isNullOrEmpty())
             Expanded(child:Padding(
               padding: EdgeInsets.only(right: Space.l),

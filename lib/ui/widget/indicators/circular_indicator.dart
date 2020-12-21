@@ -4,8 +4,8 @@ import 'dart:math' as math;
 enum CircularStrokeCap { butt, round, square }
 
 enum ArcType {
-  hALF,
-  fULL,
+  half,
+  full,
 }
 
 // ignore: must_be_immutable
@@ -421,7 +421,7 @@ class CirclePainter extends CustomPainter {
 
     double startAngleFixedMargin = 1;
     if (arcType != null) {
-      if (arcType == ArcType.fULL) {
+      if (arcType == ArcType.full) {
         fixedStartAngle = 220;
         startAngleFixedMargin = 172 / fixedStartAngle;
       } else {

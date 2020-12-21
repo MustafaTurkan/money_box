@@ -5,6 +5,7 @@ import 'package:money_box/data/data.dart';
 import 'package:money_box/domain/domain.dart';
 import 'package:money_box/infrastructure/infrastructure.dart';
 import 'package:money_box/ui/ui.dart';
+import 'dart:math' as math;
 
 class HomeView extends StatefulWidget {
   HomeView({Key key}) : super(key: key);
@@ -25,6 +26,7 @@ class _HomeViewState extends State<HomeView> {
   MediaQueryData mediaQuery;
   Future<List<Goal>> futureGoal;
   bool showGoalAddButton = true;
+  double dashboardHeight = 165;
 
   @override
   void initState() {
@@ -45,6 +47,7 @@ class _HomeViewState extends State<HomeView> {
     localizer = context.getLocalizer();
     appTheme = context.getTheme();
     mediaQuery = context.getMediaQuery();
+    dashboardHeight = math.max(dashboardHeight, mediaQuery.size.shortestSidePercent(35));
   }
 
   @override
@@ -73,7 +76,7 @@ class _HomeViewState extends State<HomeView> {
   }
 
   Widget buildError() {
-    return Scaffold(                                                                                           
+    return Scaffold(
         appBar: AppBar(
           leading: buildSettingButton(),
           centerTitle: true,
@@ -109,20 +112,37 @@ class _HomeViewState extends State<HomeView> {
               return CustomScrollView(
                 controller: scrollontroller,
                 slivers: [
-                  TotalStatistics(
-                    appTheme: appTheme,
-                    mediaQuery: mediaQuery,
-                    localizer: localizer,
-                    goals: state.goals,
-                  ),
+                  SliverPersistentHeader(
+                      delegate: FixedHeightSliverPersistentHeaderDelegate(
+                    height: 32,
+                    child: ContentTitle(
+                      icon: Icon(AppIcons.chartArc),
+                      backgroundColor: appTheme.colors.canvas,
+                      title: localizer.total,
+                      padding: EdgeInsets.fromLTRB(Space.s, Space.s, Space.s, Space.s),
+                    ),
+                  )),
+                  SliverPersistentHeader(
+                      //  floating: true,
+                      delegate: FixedHeightSliverPersistentHeaderDelegate(
+                          rebuild: true,
+                          height: dashboardHeight,
+                          child: TotalStatistics(
+                            appTheme: appTheme,
+                            dashboardHeight: dashboardHeight,
+                            goals: state.goals,
+                            localizer: localizer,
+                            mediaQuery: mediaQuery,
+                          ))),
                   SliverPersistentHeader(
                       pinned: true,
                       delegate: FixedHeightSliverPersistentHeaderDelegate(
-                        height: 35,
+                        height: 32,
                         child: ContentTitle(
+                          icon: Icon(AppIcons.formatListBulletedSquare),
                           backgroundColor: appTheme.colors.canvas,
                           title: localizer.goals,
-                          padding: EdgeInsets.fromLTRB(Space.s, Space.m, Space.s, Space.s),
+                          padding: EdgeInsets.fromLTRB(Space.s, Space.s, Space.s, Space.s),
                         ),
                       )),
                   SliverList(
