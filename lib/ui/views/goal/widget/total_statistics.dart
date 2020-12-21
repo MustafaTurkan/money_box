@@ -26,36 +26,39 @@ class TotalStatistics extends StatelessWidget {
     var remaining = totalAmount - deposited;
     return Card(
         child: SizedBox(
-          height: dashboardHeight,
-          child: Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(Space.m),
-                child: buildAmoutCircularPercentIndicator(totalAmount,deposited),
-              ),
-              VerticalDivider(
-                indent: Space.s,
-                endIndent: Space.s,
-                thickness: 0.5,
-              ),
-              Expanded(
-                  child: CustomScrollView(
-                slivers: [
-                  SliverFillRemaining(
-                    hasScrollBody: false,
-                    child: Column(
-                      children: [
-                        _buildLabel(localizer.goalAmount, Formatter.moneyToString(totalAmount)),
-                        _buildLabel(localizer.remaining, Formatter.moneyToString(remaining)),
-                        _buildLabel(localizer.deposited, Formatter.moneyToString(deposited)),
-                      ],
-                    ),
-                  )
-                ],
-              ))
-            ],
+      height: dashboardHeight,
+      child: Row(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(Space.m),
+            child: buildAmoutCircularPercentIndicator(totalAmount, deposited),
           ),
-        ));
+          VerticalDivider(
+            indent: Space.s,
+            endIndent: Space.s,
+            thickness: 0.5,
+          ),
+          Expanded(
+              child: CustomScrollView(
+            slivers: [
+              SliverFillRemaining(
+                hasScrollBody: false,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildLabel(localizer.goalAmount, Formatter.moneyToString(totalAmount)),
+                    IndentDivider(),
+                    _buildLabel(localizer.remaining, Formatter.moneyToString(remaining)),
+                    IndentDivider(),
+                    _buildLabel(localizer.deposited, Formatter.moneyToString(deposited)),
+                  ],
+                ),
+              )
+            ],
+          ))
+        ],
+      ),
+    ));
   }
 
   Widget buildAmoutCircularPercentIndicator(double totalAmount, double deposite) {
@@ -81,33 +84,20 @@ class TotalStatistics extends StatelessWidget {
   }
 
   Widget _buildLabel(String label, String value) {
-    var boderSide = BorderSide(
-      color: appTheme.colors.divider,
-      width: 0,
-    );
+
     return Padding(
       padding: EdgeInsets.all(Space.m),
-      child: ExpandedRow(
-        flexs: {0: 1, 1: 2},
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             label,
             style: appTheme.textStyles.body.copyWith(color: appTheme.colors.fontPale),
           ),
-          InputDecorator(
-              decoration: DenseInputDecoration(
-                border: UnderlineInputBorder(
-                  borderSide: boderSide,
-                ),
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: boderSide,
-                ),
-                disabledBorder: UnderlineInputBorder(
-                  borderSide: boderSide,
-                ),
-                fillColor: appTheme.colors.canvasLight,
-              ),
-              child: Text(value))
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical:Space.xxs),
+            child: Text(value,style: appTheme.textStyles.body,),
+          )
         ],
       ),
     );

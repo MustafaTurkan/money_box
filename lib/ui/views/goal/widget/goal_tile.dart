@@ -51,7 +51,7 @@ class _GoalListTileState extends State<GoalListTile> {
                       Expanded(child: buildIncrementButton(context))
                     ],
                   ),
-                  IndentDivider(),
+                  IndentDivider(indent:0,),
                   SizedBox(
                     height: Space.s,
                   ),
