@@ -57,6 +57,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Deposited": MessageLookupByLibrary.simpleMessage("Biriken"),
         "Remaining": MessageLookupByLibrary.simpleMessage("Kalan"),
          "Note": MessageLookupByLibrary.simpleMessage("Not"),
+           "Complated Goals": MessageLookupByLibrary.simpleMessage("Tamamlanan Hedefler"),
+           "Total Completed Amount": MessageLookupByLibrary.simpleMessage("Toplam Biriken Miktar"),
 
         "Increment Money": MessageLookupByLibrary.simpleMessage("Para Artır"),
         "Decrement Money": MessageLookupByLibrary.simpleMessage("Para Azalt"),

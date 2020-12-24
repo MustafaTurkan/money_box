@@ -30,9 +30,13 @@ class Goal {
   final Uint8List img;
   final DateTime targetDate;
   final double targetAmount;
-        double deposited;
   final String currency;
   final int frequency;
+  double deposited;
+
+  bool get isComplate {
+    return targetAmount <= deposited;
+  }
 
   Map<String, dynamic> toJson() => <String, dynamic>{
         GoalString.title: title,

@@ -25,6 +25,17 @@ class AppNavigator {
     );
   }
 
+    Future<bool> pushCompletedGoals(BuildContext context,List<Goal> goals) {
+    return Navigator.push(
+      context,
+      MaterialPageRoute(
+        fullscreenDialog: true,
+          builder: (context) => CompleteView(     
+                goals: goals,
+              )),
+    );
+  }
+
   void pop<T extends Object>(BuildContext context, {T result}) {
     Navigator.of(context).pop<T>(result);
   }

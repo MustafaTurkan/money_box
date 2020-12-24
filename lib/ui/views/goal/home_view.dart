@@ -100,9 +100,8 @@ class _HomeViewState extends State<HomeView> {
             if (state is GoalListFail) {
               return BackgroundHint.unExpectedError(context);
             }
-
             if (state is GoalListSuccesed) {
-              if (state.goals.isNullOrEmpty()) {
+              if (state.endlessGoals.isNullOrEmpty()) {
                 return BackgroundHint(
                   iconData: AppIcons.piggyBank,
                   message: localizer.dontHaveActiveGoals,
@@ -130,7 +129,7 @@ class _HomeViewState extends State<HomeView> {
                           child: TotalStatistics(
                             appTheme: appTheme,
                             dashboardHeight: dashboardHeight,
-                            goals: state.goals,
+                            goals: state.endlessGoals,
                             localizer: localizer,
                             mediaQuery: mediaQuery,
                           ))),
@@ -149,12 +148,12 @@ class _HomeViewState extends State<HomeView> {
                     delegate: SliverChildBuilderDelegate(
                       (context, index) {
                         return GoalListTile(
-                            goal: state.goals[index],
+                            goal: state.endlessGoals[index],
                             onAddContribution: () {
                               setState(() {});
                             });
                       },
-                      childCount: state.goals.length,
+                      childCount: state.endlessGoals.length,
                     ),
                   )
                 ],
@@ -176,10 +175,17 @@ class _HomeViewState extends State<HomeView> {
   }
 
   Widget buildCompleteGoalsButton() {
-    return IconButton(
-      icon: Icon(AppIcons.playlistCheck),
-      onPressed: () {},
-    );
+    return BlocBuilder<GoalListCubit, GoalListState>(builder: (context, state) {
+      if (state is GoalListSuccesed && !state.completedGoals.isNullOrEmpty()) {
+        return IconButton(
+          icon: Icon(AppIcons.playlistCheck),
+          onPressed: () {
+            navigator.pushCompletedGoals(context, state.completedGoals);
+          },
+        );
+      }
+      return WidgetFactory.emptyWidget();
+    });
   }
 
   Widget buildFilterButton() {

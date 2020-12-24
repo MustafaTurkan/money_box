@@ -1,5 +1,6 @@
 export 'home_view.dart';
 export 'widget/total_statistics.dart';
+export 'completed_view.dart';
 export 'goal_add_view.dart';
 export 'widget/goal_tile.dart';
 export 'widget/amount_percent_lineer_Indicator.dart';

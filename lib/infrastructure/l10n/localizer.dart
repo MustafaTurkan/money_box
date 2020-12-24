@@ -58,9 +58,11 @@ class Localizer {
   String get weekly => Intl.message('weekly');
   String get monthly => Intl.message('monthly');
   String get total => Intl.message('Total');
+  String get totalCompletedAmount => Intl.message('Total Completed Amount');
   String get deposited => Intl.message('Deposited');
   String get remaining => Intl.message('Remaining');
   String get note => Intl.message('Note');
+  String get complatedGoals => Intl.message('Complated Goals');
   String get incrementMoney => Intl.message('Increment Money');
   String get decrementMoney => Intl.message('Decrement Money');
   String mustBeGreaterThanValue(String value) =>
