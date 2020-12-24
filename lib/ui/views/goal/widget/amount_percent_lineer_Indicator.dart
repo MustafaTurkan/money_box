@@ -20,7 +20,7 @@ class AmountPercentLineerIndicator extends StatelessWidget {
                       lineHeight: 20,
                       animationDuration: 2500,
                       backgroundColor: appTheme.colors.primaryPale.withOpacity(0.8),
-                      percent: value / totalValue,
+                      percent: getPercent(),
                       center: Text(
                        '%${calculateRate(value, totalValue).toString()}',
                         style: appTheme.textStyles.bodyBold.copyWith(color: appTheme.colors.fontLight),
@@ -34,6 +34,17 @@ class AmountPercentLineerIndicator extends StatelessWidget {
     if (totalValue == 0) {
       return 0;
     }
-    return (value * 100) / totalValue;
+    return double.parse(( (value * 100) / totalValue).toStringAsFixed(2));
   }
+  
+    double getPercent()
+  {
+     double percent= value / totalValue;
+     if(percent<0)
+     {return 0;}
+     if(percent>1)
+     {return 1;}
+     return percent;
+  }
+
 }

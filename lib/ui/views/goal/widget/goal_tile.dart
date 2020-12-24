@@ -4,10 +4,9 @@ import 'package:money_box/infrastructure/infrastructure.dart';
 import 'package:money_box/ui/ui.dart';
 
 class GoalListTile extends StatefulWidget {
-  GoalListTile({Key key, @required this.goal, @required this.onDelete, @required this.onEdit}) : super(key: key);
+  GoalListTile({Key key, @required this.goal, @required this.onAddContribution}) : super(key: key);
   final Goal goal;
-  final VoidCallback onEdit;
-  final VoidCallback onDelete;
+  final VoidCallback onAddContribution;
   @override
   _GoalListTileState createState() => _GoalListTileState();
 }
@@ -102,13 +101,17 @@ class _GoalListTileState extends State<GoalListTile> {
   }
 
   Future<void> onDecrement(BuildContext context) async {
-    var mobility = await navigator.pushContributionAdd(context, MobilityType.decrement);
-    if (mobility != null) {}
+    var mobility = await navigator.pushContributionAdd(context, widget.goal,MobilityType.decrement);
+    if (mobility) {
+        widget.onAddContribution();
+    }
   }
 
   Future<void> onIncrement(BuildContext context) async {
-    var mobility = await navigator.pushContributionAdd(context, MobilityType.increment);
+    var mobility = await navigator.pushContributionAdd(context,widget.goal,MobilityType.increment);
 
-    if (mobility != null) {}
+    if (mobility) {
+ widget.onAddContribution();
+    }
   }
 }

@@ -210,15 +210,16 @@ class _GoalAddViewState extends State<GoalAddView> {
   }
 
   Future<void> onSaveGoal(BuildContext context) async {
-    if (formKey.currentState.validate()) {
-      await context.getBloc<GoalAddCubit>().add(Goal(
-            targetAmount: double.parse(tecAmount.text),
-            title: tecTitle.text,
-            img: image,
-            targetDate: currentDate,
-            frequency: currentSavingPeriod.index,
-            currency: 'TRY',
-          ));
+    if (!formKey.currentState.validate()) {
+      return;
     }
+    await context.getBloc<GoalAddCubit>().add(Goal(
+          targetAmount: double.parse(tecAmount.text),
+          title: tecTitle.text,
+          img: image,
+          targetDate: currentDate,
+          frequency: currentSavingPeriod.index,
+          currency: 'TRY',
+        ));
   }
 }

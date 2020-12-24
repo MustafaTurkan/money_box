@@ -107,6 +107,6 @@ class TotalStatistics extends StatelessWidget {
     if (totalValue == 0) {
       return 0;
     }
-    return (value * 100) / totalValue;
+    return double.parse(( (value * 100) / totalValue).toStringAsFixed(2));
   }
 }

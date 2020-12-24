@@ -148,7 +148,11 @@ class _HomeViewState extends State<HomeView> {
                   SliverList(
                     delegate: SliverChildBuilderDelegate(
                       (context, index) {
-                        return GoalListTile(goal: state.goals[index], onDelete: null, onEdit: null);
+                        return GoalListTile(
+                            goal: state.goals[index],
+                            onAddContribution: () {
+                              setState(() {});
+                            });
                       },
                       childCount: state.goals.length,
                     ),
