@@ -38,6 +38,7 @@ class _GoalListTileState extends State<GoalListTile> {
             ),
             Expanded(
               child: Column(
+            
                 children: [
                   Row(
                     children: [
@@ -55,8 +56,8 @@ class _GoalListTileState extends State<GoalListTile> {
                     height: Space.s,
                   ),
                   buildlineerRateIndicator(),
-                  SizedBox(
-                    height: Space.s,
+                 SizedBox(
+                    height: Space.m,
                   ),
                 ],
               ),
