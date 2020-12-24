@@ -1,3 +1,3 @@
 export 'goal.dart';
-export 'mobility.dart';
+export 'contribution.dart';
 export 'code_description.dart';

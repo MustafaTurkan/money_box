@@ -28,8 +28,8 @@ class App {
       () => GoalRepository(db),
     );
 
-    AppService.addTransient<IMobilityRepository>(
-      () => MobilityRepository(db),
+    AppService.addTransient<IContributionRepository>(
+      () => ContributionRepository(db),
     );
   }
 

@@ -4,38 +4,38 @@ import 'package:money_box/data/data.dart';
 import 'package:money_box/domain/domain.dart';
 
 class ContributionCubit extends Cubit<ContributionState> {
-  ContributionCubit({@required this.goalRepository, @required this.mobilityRepository})
+  ContributionCubit({@required this.goalRepository, @required this.contributionRepository})
       : super(ContributionAddedInitial());
 
   IGoalRepository goalRepository;
-  IMobilityRepository mobilityRepository;
+  IContributionRepository contributionRepository;
 
-  Future<void> add(Goal goal, Mobility mobility) async {
-    if (mobility.type == MobilityType.increment.index) {
-      await _incrament(goal, mobility);
+  Future<void> add(Goal goal, Contribution contribution) async {
+    if (contribution.type == ContributionType.increment.index) {
+      await _incrament(goal, contribution);
       return;
     }
-    await _decrement(goal, mobility);
+    await _decrement(goal, contribution);
   }
 
-  Future<void> _decrement(Goal goal, Mobility mobility) async {
+  Future<void> _decrement(Goal goal, Contribution contribution) async {
     try {
       emit(ContributionAdding());
-      goal.deposited = goal.deposited - mobility.amount;
+      goal.deposited = goal.deposited - contribution.amount;
       await goalRepository.edit(goal);
-      await mobilityRepository.add(mobility);
+      await contributionRepository.add(contribution);
       emit(ContributionAddedSucces());
     } catch (e) {
       emit(ContributionAddedFail(message: e.toString()));
     }
   }
 
-  Future<void> _incrament(Goal goal, Mobility mobility) async {
+  Future<void> _incrament(Goal goal, Contribution contribution) async {
     try {
       emit(ContributionAdding());
-      goal.deposited = goal.deposited + mobility.amount;
+      goal.deposited = goal.deposited + contribution.amount;
       await goalRepository.edit(goal);
-      await mobilityRepository.add(mobility);
+      await contributionRepository.add(contribution);
       emit(ContributionAddedSucces());
     } catch (e) {
       emit(ContributionAddedFail(message: e.toString()));

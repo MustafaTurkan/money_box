@@ -101,14 +101,14 @@ class _GoalListTileState extends State<GoalListTile> {
   }
 
   Future<void> onDecrement(BuildContext context) async {
-    var mobility = await navigator.pushContributionAdd(context, widget.goal,MobilityType.decrement);
+    var mobility = await navigator.pushContributionAdd(context, widget.goal,ContributionType.decrement);
     if (mobility) {
         widget.onAddContribution();
     }
   }
 
   Future<void> onIncrement(BuildContext context) async {
-    var mobility = await navigator.pushContributionAdd(context,widget.goal,MobilityType.increment);
+    var mobility = await navigator.pushContributionAdd(context,widget.goal,ContributionType.increment);
 
     if (mobility) {
  widget.onAddContribution();

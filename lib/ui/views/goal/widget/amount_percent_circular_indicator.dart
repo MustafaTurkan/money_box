@@ -41,6 +41,4 @@ class AmountPercentCircularIndicator extends StatelessWidget {
      {return 1;}
      return percent;
   }
-  
-
 }

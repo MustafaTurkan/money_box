@@ -13,13 +13,13 @@ class AppNavigator {
     );
   }
 
-  Future<bool> pushContributionAdd(BuildContext context,Goal goal, MobilityType mobilityType) {
+  Future<bool> pushContributionAdd(BuildContext context,Goal goal, ContributionType contributionType) {
     return Navigator.push(
       context,
       MaterialPageRoute(
         fullscreenDialog: true,
           builder: (context) => ContributionAddView(
-                mobilityType: mobilityType,
+                contributionType: contributionType,
                 goal: goal,
               )),
     );

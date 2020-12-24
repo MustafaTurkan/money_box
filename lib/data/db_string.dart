@@ -17,7 +17,7 @@ class GoalString {
   static const String createTable = 'CREATE TABLE $tableName ($id INTEGER PRIMARY KEY AUTOINCREMENT, $title TEXT, $img BLOB, $targetAmount REAL, $targetDate TEXT, $deposited REAL, $currency TEXT,$frequency INTEGER)';
 }
 
-class MobilityString {
+class ContributionString {
   static const String tableName = 'mobility';
   static const String id = 'id';
   static const String type = 'type';

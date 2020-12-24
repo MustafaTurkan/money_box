@@ -9,8 +9,8 @@ import 'package:money_box/infrastructure/infrastructure.dart';
 import 'package:money_box/ui/ui.dart';
 
 class ContributionAddView extends StatefulWidget {
-  ContributionAddView({Key key, @required this.mobilityType, @required this.goal}) : super(key: key);
-  final MobilityType mobilityType;
+  ContributionAddView({Key key, @required this.contributionType, @required this.goal}) : super(key: key);
+  final ContributionType contributionType;
   final Goal goal;
   @override
   _ContributionAddViewState createState() => _ContributionAddViewState();
@@ -18,11 +18,11 @@ class ContributionAddView extends StatefulWidget {
 
 class _ContributionAddViewState extends State<ContributionAddView> {
   _ContributionAddViewState()
-      : mobilityRepository = AppService.get<IMobilityRepository>(),
+      : contributionRepository = AppService.get<IContributionRepository>(),
         goalRepository = AppService.get<IGoalRepository>(),
         navigator = AppService.get<AppNavigator>();
 
-  final IMobilityRepository mobilityRepository;
+  final IContributionRepository contributionRepository;
   final IGoalRepository goalRepository;
   final AppNavigator navigator;
   final TextEditingController tecNote = TextEditingController();
@@ -50,10 +50,10 @@ class _ContributionAddViewState extends State<ContributionAddView> {
 
   @override
   Widget build(BuildContext context) {
-    var titleText = widget.mobilityType == MobilityType.decrement ? localizer.decrementMoney : localizer.incrementMoney;
-    var color = widget.mobilityType == MobilityType.decrement ? appTheme.colors.error : appTheme.colors.success;
+    var titleText = widget.contributionType == ContributionType.decrement ? localizer.decrementMoney : localizer.incrementMoney;
+    var color = widget.contributionType == ContributionType.decrement ? appTheme.colors.error : appTheme.colors.success;
     return BlocProvider<ContributionCubit>(
-      create: (context) => ContributionCubit(goalRepository: goalRepository, mobilityRepository: mobilityRepository),
+      create: (context) => ContributionCubit(goalRepository: goalRepository, contributionRepository: contributionRepository),
       child: Scaffold(
           appBar: AppBar(
             centerTitle: true,
@@ -139,11 +139,11 @@ class _ContributionAddViewState extends State<ContributionAddView> {
     }
     await context.getBloc<ContributionCubit>().add(
         widget.goal,
-        Mobility(
+        Contribution(
             amount: double.parse(tecAmount.text),
             goalId: widget.goal.id,
             title: tecNote.text,
             transactionDate: currentDate,
-            type: widget.mobilityType.index));
+            type: widget.contributionType.index));
   }
 }

@@ -11,7 +11,7 @@ class MoneyBoxDb {
       join(await getDatabasesPath(), DbString.name),
       onCreate: (Database db, int version) async {
         await db.execute(GoalString.createTable);
-        await db.execute(MobilityString.createTable);
+        await db.execute(ContributionString.createTable);
       },
       version: 1,
     );
@@ -75,49 +75,49 @@ class MoneyBoxDb {
     }
   }
 
-  Future<void> insertMobility(Mobility mobility) async {
+  Future<void> insertMobility(Contribution mobility) async {
     try {
-      await database.insert(MobilityString.tableName, mobility.toJson(), conflictAlgorithm: ConflictAlgorithm.replace);
+      await database.insert(ContributionString.tableName, mobility.toJson(), conflictAlgorithm: ConflictAlgorithm.replace);
     } catch (e) {
       throw Exception(e);
     }
   }
 
-  Future<List<Mobility>> getMobilities(int goalId) async {
+  Future<List<Contribution>> getMobilities(int goalId) async {
     try {
-      var result = await database.query(MobilityString.tableName,
+      var result = await database.query(ContributionString.tableName,
           columns: [
-            MobilityString.id,
-            MobilityString.title,
-            MobilityString.amount,
-            MobilityString.goalId,
-            MobilityString.transactionDate
+            ContributionString.id,
+            ContributionString.title,
+            ContributionString.amount,
+            ContributionString.goalId,
+            ContributionString.transactionDate
           ],
-          where: '${MobilityString.goalId} = ?',
+          where: '${ContributionString.goalId} = ?',
           whereArgs: <int>[goalId]);
 
       return List.generate(result.length, (index) {
-        return Mobility.fromJson(result[index]);
+        return Contribution.fromJson(result[index]);
       });
     } catch (e) {
       throw Exception(e);
     }
   }
 
-  Future<Mobility> getMobility(int id) async {
+  Future<Contribution> getMobility(int id) async {
     try {
-      var result = await database.query(MobilityString.tableName,
+      var result = await database.query(ContributionString.tableName,
           columns: [
-            MobilityString.id,
-            MobilityString.title,
-            MobilityString.amount,
-            MobilityString.goalId,
-            MobilityString.transactionDate
+            ContributionString.id,
+            ContributionString.title,
+            ContributionString.amount,
+            ContributionString.goalId,
+            ContributionString.transactionDate
           ],
-          where: '${MobilityString.id} = ?',
+          where: '${ContributionString.id} = ?',
           whereArgs: <int>[id]);
 
-      return Mobility.fromJson(result.first);
+      return Contribution.fromJson(result.first);
     } catch (e) {
       throw Exception(e);
     }
@@ -125,15 +125,15 @@ class MoneyBoxDb {
 
   Future<void> deleteMobility(int id) async {
     try {
-      await database.delete(MobilityString.tableName, where: '${MobilityString.id} = ?', whereArgs: <int>[id]);
+      await database.delete(ContributionString.tableName, where: '${ContributionString.id} = ?', whereArgs: <int>[id]);
     } catch (e) {
       throw Exception(e);
     }
   }
 
-  Future<void> updateMobility(Mobility mobility) async {
+  Future<void> updateMobility(Contribution mobility) async {
     try {
-      await database.update(MobilityString.tableName, mobility.toJson(),
+      await database.update(ContributionString.tableName, mobility.toJson(),
           where: '${mobility.id} = ?', whereArgs: <int>[mobility.id]);
     } catch (e) {
       throw Exception(e);
