@@ -54,6 +54,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Total": MessageLookupByLibrary.simpleMessage("Total"),
         "Remaining": MessageLookupByLibrary.simpleMessage("Remaining"),
        "Note": MessageLookupByLibrary.simpleMessage("Note"),
+       "Congratulations you achieved your goal":MessageLookupByLibrary.simpleMessage("Congratulations you achieved your goal."),
       "Complated Goals": MessageLookupByLibrary.simpleMessage("Complated Goals"),
                 "Increment Money": MessageLookupByLibrary.simpleMessage("Increment Money"),
         "Decrement Money": MessageLookupByLibrary.simpleMessage("Decrement Money"),

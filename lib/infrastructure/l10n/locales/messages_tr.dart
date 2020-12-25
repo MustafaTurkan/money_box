@@ -59,7 +59,7 @@ class MessageLookup extends MessageLookupByLibrary {
          "Note": MessageLookupByLibrary.simpleMessage("Not"),
            "Complated Goals": MessageLookupByLibrary.simpleMessage("Tamamlanan Hedefler"),
            "Total Completed Amount": MessageLookupByLibrary.simpleMessage("Toplam Miktar"),
-
+"Congratulations you achieved your goal":MessageLookupByLibrary.simpleMessage("Tebrikler hedefini başardın."),
         "Increment Money": MessageLookupByLibrary.simpleMessage("Para Artır"),
         "Decrement Money": MessageLookupByLibrary.simpleMessage("Para Azalt"),
         "Must be greater than zero": MessageLookupByLibrary.simpleMessage("Sıfırdan büyük olmalı"),

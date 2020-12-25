@@ -73,7 +73,7 @@ class _ContributionAddViewState extends State<ContributionAddView> {
                 await MessageDialog.error(context: context, message: state.message);
               }
               if (state is ContributionAddedSucces) {
-                navigator.pop(context, result: true);
+                navigator.pop(context, result: widget.goal);
               }
             },
             child: ContentContainer(

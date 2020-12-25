@@ -13,11 +13,11 @@ class AppNavigator {
     );
   }
 
-  Future<bool> pushContributionAdd(BuildContext context,Goal goal, ContributionType contributionType) {
+  Future<Goal> pushContributionAdd(BuildContext context, Goal goal, ContributionType contributionType) {
     return Navigator.push(
       context,
       MaterialPageRoute(
-        fullscreenDialog: true,
+          fullscreenDialog: true,
           builder: (context) => ContributionAddView(
                 contributionType: contributionType,
                 goal: goal,
@@ -25,12 +25,12 @@ class AppNavigator {
     );
   }
 
-    Future<bool> pushCompletedGoals(BuildContext context,List<Goal> goals) {
+  Future<bool> pushCompletedGoals(BuildContext context, List<Goal> goals) {
     return Navigator.push(
       context,
       MaterialPageRoute(
-        fullscreenDialog: true,
-          builder: (context) => CompleteView(     
+          fullscreenDialog: true,
+          builder: (context) => CompleteView(
                 goals: goals,
               )),
     );

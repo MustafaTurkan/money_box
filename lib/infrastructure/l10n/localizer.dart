@@ -39,7 +39,7 @@ class Localizer {
   String get title => Intl.message('Title');
   String get goalAmount => Intl.message('Goal Amount');
   String get goalDate => Intl.message('Goal Date');
-
+  String get congratulations=>Intl.message('Congratulations you achieved your goal');
   String get ok => Intl.message('OK');
   String get yes => Intl.message('Yes');
   String get no => Intl.message('No');

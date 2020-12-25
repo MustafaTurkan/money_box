@@ -149,7 +149,11 @@ class _HomeViewState extends State<HomeView> {
                       (context, index) {
                         return TileWithIndicator(
                             goal: state.endlessGoals[index],
-                            onAddContribution: () {
+                            onAddContribution: (goal){
+                              if(goal.targetAmount<=goal.deposited)
+                              {
+                                SnackBarAlert.info(context: context, message:localizer.congratulations);
+                              }
                               setState(() {});
                             });
                       },

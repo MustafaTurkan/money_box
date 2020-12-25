@@ -6,7 +6,7 @@ import 'package:money_box/ui/ui.dart';
 class TileWithIndicator extends StatefulWidget {
   TileWithIndicator({Key key, @required this.goal, @required this.onAddContribution}) : super(key: key);
   final Goal goal;
-  final VoidCallback onAddContribution;
+  final Function(Goal) onAddContribution;
   @override
   _TileWithIndicatorState createState() => _TileWithIndicatorState();
 }
@@ -31,38 +31,40 @@ class _TileWithIndicatorState extends State<TileWithIndicator> {
   Widget build(BuildContext context) {
     return Card(
         child: Row(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(Space.m),
-              child: CircularImage(img: widget.goal.img),
-            ),
-            Expanded(
-              child: Column( 
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(Space.m),
+          child: CircularImage(img: widget.goal.img),
+        ),
+        Expanded(
+          child: Column(
+            children: [
+              Row(
                 children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        flex: 4,
-                        child: buildTitle(),
-                      ),
-                      Spacer(),
-                      Expanded(child: buildDecrementButton(context)),
-                      Expanded(child: buildIncrementButton(context))
-                    ],
+                  Expanded(
+                    flex: 4,
+                    child: buildTitle(),
                   ),
-                  IndentDivider(indent:0,),
-                  SizedBox(
-                    height: Space.s,
-                  ),
-                  buildlineerRateIndicator(),
-                 SizedBox(
-                    height: Space.m,
-                  ),
+                  Spacer(),
+                  Expanded(child: buildDecrementButton(context)),
+                  Expanded(child: buildIncrementButton(context))
                 ],
               ),
-            )
-          ],
-        ));
+              IndentDivider(
+                indent: 0,
+              ),
+              SizedBox(
+                height: Space.s,
+              ),
+              buildlineerRateIndicator(),
+              SizedBox(
+                height: Space.m,
+              ),
+            ],
+          ),
+        )
+      ],
+    ));
   }
 
   Widget buildIncrementButton(BuildContext context) {
@@ -101,18 +103,17 @@ class _TileWithIndicatorState extends State<TileWithIndicator> {
   }
 
   Future<void> onDecrement(BuildContext context) async {
-    var mobility = await navigator.pushContributionAdd(context, widget.goal,ContributionType.decrement);
-    if (mobility!=null&&mobility)  {
-        widget.onAddContribution();
+    var result = await navigator.pushContributionAdd(context, widget.goal, ContributionType.decrement);
+    if (result != null) {
+      widget.onAddContribution(result);
     }
   }
 
   Future<void> onIncrement(BuildContext context) async {
-    
-    var mobility = await navigator.pushContributionAdd(context,widget.goal,ContributionType.increment);
+    var result = await navigator.pushContributionAdd(context, widget.goal, ContributionType.increment);
 
-    if (mobility!=null&&mobility) {
- widget.onAddContribution();
+    if (result != null) {
+      widget.onAddContribution(result);
     }
   }
 }
