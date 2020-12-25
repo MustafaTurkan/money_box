@@ -102,15 +102,16 @@ class _TileWithIndicatorState extends State<TileWithIndicator> {
 
   Future<void> onDecrement(BuildContext context) async {
     var mobility = await navigator.pushContributionAdd(context, widget.goal,ContributionType.decrement);
-    if (mobility) {
+    if (mobility!=null&&mobility)  {
         widget.onAddContribution();
     }
   }
 
   Future<void> onIncrement(BuildContext context) async {
+    
     var mobility = await navigator.pushContributionAdd(context,widget.goal,ContributionType.increment);
 
-    if (mobility) {
+    if (mobility!=null&&mobility) {
  widget.onAddContribution();
     }
   }
