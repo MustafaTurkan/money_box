@@ -34,7 +34,7 @@ class _TileState extends State<Tile> {
           Expanded(
             child: Row(
               children: [
-                buildImage(),
+                RectangleImage(img: widget.goal.img, height: 120, width: 90),
                 VerticalDivider(
                   indent: Space.s,
                   endIndent: Space.s,
@@ -58,8 +58,8 @@ class _TileState extends State<Tile> {
           decoration: BoxDecoration(
               border: Border.all(color: appTheme.colors.canvas), borderRadius: appTheme.data.cardBorderRadius()),
           margin: EdgeInsets.zero,
-          width: 100,
-          height: 120,
+          width: 1,
+          height: 100,
           padding: EdgeInsets.all(Space.xs),
           child: Image.memory(widget.goal.img, fit: BoxFit.contain),
         ),

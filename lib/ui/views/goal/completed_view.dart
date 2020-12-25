@@ -56,7 +56,6 @@ class _CompleteViewState extends State<CompleteView> {
         delegate: FixedHeightSliverPersistentHeaderDelegate(
           height:headerHeight,
           child:ContentTitle(
-            
             backgroundColor: appTheme.colors.canvasLight,
             icon: WidgetFactory.emptyWidget(),
             title: localizer.totalCompletedAmount,
