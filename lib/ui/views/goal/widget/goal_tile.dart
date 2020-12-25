@@ -34,11 +34,10 @@ class _GoalListTileState extends State<GoalListTile> {
           children: [
             Padding(
               padding: const EdgeInsets.all(Space.m),
-              child: GoalTileImage(goal: widget.goal),
+              child: GoalTileImage(img: widget.goal.img),
             ),
             Expanded(
-              child: Column(
-            
+              child: Column( 
                 children: [
                   Row(
                     children: [

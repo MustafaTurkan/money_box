@@ -1,13 +1,14 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
-import 'package:money_box/data/data.dart';
 import 'package:money_box/ui/ui.dart';
 import 'package:money_box/infrastructure/infrastructure.dart';
 
 class GoalTileImage extends StatelessWidget {
-  const GoalTileImage({Key key, @required this.goal}) : super(key: key);
+  const GoalTileImage({Key key, this.radius=30,@required this.img}) : super(key: key);
 
-  final Goal goal;
-
+  final Uint8List  img;
+  final double radius;
   @override
   Widget build(BuildContext context) {
     var appTheme = context.getTheme();
@@ -15,10 +16,10 @@ class GoalTileImage extends StatelessWidget {
       AppIcons.camera,
     );
     return CircleAvatar(
-      radius: 30,
+      radius: radius,
       backgroundColor: appTheme.colors.canvas,
-      backgroundImage: goal.img == null ? null : MemoryImage(goal.img),
-      child: goal.img == null ? emptyPhoto : null,
+      backgroundImage:img == null ? null : MemoryImage(img),
+      child:img == null ? emptyPhoto : null,
     );
   }
 }

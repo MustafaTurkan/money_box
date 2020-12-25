@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:money_box/ui/ui.dart';
 import 'package:money_box/infrastructure/infrastructure.dart';
 
-
 class WidgetFactory {
   static Widget dotProgressIndicator({Color color, double size = 20, double boxSize}) {
     assert(boxSize == null || size <= boxSize);
@@ -48,10 +47,35 @@ class WidgetFactory {
     return indicator;
   }
 
-
-
   static Widget emptyWidget() {
     return SizedBox.shrink();
+  }
+
+  static Widget columnLabelValue({
+    @required AppTheme appTheme,
+    @required String label,
+    @required String value,
+  }) {
+    return Padding(
+      padding: EdgeInsets.all(Space.m),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            label,
+            style: appTheme.textStyles.body.copyWith(color: appTheme.colors.fontPale),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: Space.xxs),
+            child: Text(
+              value,
+                overflow: TextOverflow.ellipsis,
+              style: appTheme.textStyles.body,
+            ),
+          )
+        ],
+      ),
+    );
   }
 
   static Widget rowLabelValue(

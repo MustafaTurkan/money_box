@@ -46,11 +46,14 @@ class TotalStatistics extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _buildLabel(localizer.goalAmount, Formatter.moneyToString(totalAmount)),
+                    WidgetFactory.columnLabelValue(
+                        appTheme: appTheme, label: localizer.goalAmount, value: Formatter.moneyToString(totalAmount)),
                     IndentDivider(),
-                    _buildLabel(localizer.remaining, Formatter.moneyToString(remaining)),
+                    WidgetFactory.columnLabelValue(
+                        appTheme: appTheme, label: localizer.remaining, value: Formatter.moneyToString(remaining)),
                     IndentDivider(),
-                    _buildLabel(localizer.deposited, Formatter.moneyToString(deposited)),
+                    WidgetFactory.columnLabelValue(
+                        appTheme: appTheme, label: localizer.deposited, value: Formatter.moneyToString(deposited)),
                   ],
                 ),
               )
@@ -83,30 +86,10 @@ class TotalStatistics extends StatelessWidget {
         ));
   }
 
-  Widget _buildLabel(String label, String value) {
-
-    return Padding(
-      padding: EdgeInsets.all(Space.m),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            label,
-            style: appTheme.textStyles.body.copyWith(color: appTheme.colors.fontPale),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical:Space.xxs),
-            child: Text(value,style: appTheme.textStyles.body,),
-          )
-        ],
-      ),
-    );
-  }
-
   double calculateRate(double value, double totalValue) {
     if (totalValue == 0) {
       return 0;
     }
-    return double.parse(( (value * 100) / totalValue).toStringAsFixed(2));
+    return double.parse(((value * 100) / totalValue).toStringAsFixed(2));
   }
 }

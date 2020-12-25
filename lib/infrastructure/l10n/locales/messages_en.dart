@@ -57,7 +57,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Complated Goals": MessageLookupByLibrary.simpleMessage("Complated Goals"),
                 "Increment Money": MessageLookupByLibrary.simpleMessage("Increment Money"),
         "Decrement Money": MessageLookupByLibrary.simpleMessage("Decrement Money"),
-  "Total Completed Amount": MessageLookupByLibrary.simpleMessage("Total Completed Amount"),
+  "Total Completed Amount": MessageLookupByLibrary.simpleMessage("Total Amount"),
                 "Deposited": MessageLookupByLibrary.simpleMessage("Deposited"),
         "Must be greater than zero": MessageLookupByLibrary.simpleMessage("Must be greater than zero"),
         "mustBeGreaterThanValue": m0,

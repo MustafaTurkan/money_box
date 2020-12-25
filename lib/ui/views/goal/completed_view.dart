@@ -13,6 +13,8 @@ class CompleteView extends StatefulWidget {
 }
 
 class _CompleteViewState extends State<CompleteView> {
+  
+  final double headerHeight=35;
   Localizer localizer;
   AppTheme appTheme;
   @override
@@ -30,21 +32,36 @@ class _CompleteViewState extends State<CompleteView> {
       ),
       body: CustomScrollView(
         slivers: [
-          
+          buildTitle(),
+          buildBody()
         ],
       ),
-      bottomSheet:buildBottomTitle() ,
     );
   }
 
-  Widget buildBottomTitle() {
-    return ContentTitle(
-      
-        icon: Icon(AppIcons.check),
-        backgroundColor: appTheme.colors.canvasLight,
-        title: localizer.totalCompletedAmount,
-        padding: EdgeInsets.fromLTRB(Space.s, Space.s, Space.s, Space.s),
-        leadingText: widget.goals.sum((e) => e.deposited.orDefault()).toCurrencyString(),
-      );
+  Widget buildBody() {
+    return SliverList(
+          delegate: SliverChildBuilderDelegate(
+            (context, index) {
+              return CompletedGoalTile(goal: widget.goals[index]);
+            },
+            childCount: widget.goals.length,
+          ),
+        );
+  }
+
+  Widget buildTitle() {
+    return SliverPersistentHeader(
+        pinned: true,
+        delegate: FixedHeightSliverPersistentHeaderDelegate(
+          height:headerHeight,
+          child:ContentTitle(
+            
+            backgroundColor: appTheme.colors.canvasLight,
+            icon: WidgetFactory.emptyWidget(),
+            title: localizer.totalCompletedAmount,
+            leadingText: widget.goals.sum((e) => e.deposited.orDefault()).toCurrencyString(),
+          ),
+        ));
   }
 }
