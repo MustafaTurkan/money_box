@@ -3,16 +3,16 @@ import 'package:money_box/data/data.dart';
 import 'package:money_box/infrastructure/infrastructure.dart';
 import 'package:money_box/ui/ui.dart';
 
-class GoalListTile extends StatefulWidget {
-  GoalListTile({Key key, @required this.goal, @required this.onAddContribution}) : super(key: key);
+class TileWithIndicator extends StatefulWidget {
+  TileWithIndicator({Key key, @required this.goal, @required this.onAddContribution}) : super(key: key);
   final Goal goal;
   final VoidCallback onAddContribution;
   @override
-  _GoalListTileState createState() => _GoalListTileState();
+  _TileWithIndicatorState createState() => _TileWithIndicatorState();
 }
 
-class _GoalListTileState extends State<GoalListTile> {
-  _GoalListTileState() : navigator = AppService.get<AppNavigator>();
+class _TileWithIndicatorState extends State<TileWithIndicator> {
+  _TileWithIndicatorState() : navigator = AppService.get<AppNavigator>();
 
   MediaQueryData mediaQuery;
   Localizer localizer;
@@ -34,7 +34,7 @@ class _GoalListTileState extends State<GoalListTile> {
           children: [
             Padding(
               padding: const EdgeInsets.all(Space.m),
-              child: GoalTileImage(img: widget.goal.img),
+              child: CircularImage(img: widget.goal.img),
             ),
             Expanded(
               child: Column( 

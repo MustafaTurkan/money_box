@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:money_box/ui/ui.dart';
 import 'package:money_box/infrastructure/infrastructure.dart';
 
-class GoalTileImage extends StatelessWidget {
-  const GoalTileImage({Key key, this.radius=30,@required this.img}) : super(key: key);
+class CircularImage extends StatelessWidget {
+  const CircularImage({Key key, this.radius=30,@required this.img}) : super(key: key);
 
   final Uint8List  img;
   final double radius;

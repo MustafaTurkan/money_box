@@ -43,7 +43,7 @@ class _CompleteViewState extends State<CompleteView> {
     return SliverList(
           delegate: SliverChildBuilderDelegate(
             (context, index) {
-              return CompletedGoalTile(goal: widget.goals[index]);
+              return Tile(goal: widget.goals[index]);
             },
             childCount: widget.goals.length,
           ),

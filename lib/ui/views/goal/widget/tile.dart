@@ -1,20 +1,17 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:money_box/data/data.dart';
 import 'package:money_box/infrastructure/infrastructure.dart';
 import 'package:money_box/ui/ui.dart';
 
-class CompletedGoalTile extends StatefulWidget {
-  CompletedGoalTile({Key key, @required this.goal}) : super(key: key);
+class Tile extends StatefulWidget {
+  Tile({Key key, @required this.goal}) : super(key: key);
   final Goal goal;
-
   @override
-  _CompletedGoalTileState createState() => _CompletedGoalTileState();
+  _TileState createState() => _TileState();
 }
 
-class _CompletedGoalTileState extends State<CompletedGoalTile> {
+class _TileState extends State<Tile> {
   final double cardHeight = 210;
   AppTheme appTheme;
   Localizer localizer;
