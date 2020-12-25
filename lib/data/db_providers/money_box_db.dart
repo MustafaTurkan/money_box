@@ -75,15 +75,16 @@ class MoneyBoxDb {
     }
   }
 
-  Future<void> insertMobility(Contribution mobility) async {
+  Future<void> insertContribution(Contribution contribution) async {
     try {
-      await database.insert(ContributionString.tableName, mobility.toJson(), conflictAlgorithm: ConflictAlgorithm.replace);
+      var a= contribution.toJson();
+      await database.insert(ContributionString.tableName,a, conflictAlgorithm: ConflictAlgorithm.replace);
     } catch (e) {
       throw Exception(e);
     }
   }
 
-  Future<List<Contribution>> getMobilities(int goalId) async {
+  Future<List<Contribution>> getContributions(int goalId) async {
     try {
       var result = await database.query(ContributionString.tableName,
           columns: [
@@ -91,7 +92,8 @@ class MoneyBoxDb {
             ContributionString.title,
             ContributionString.amount,
             ContributionString.goalId,
-            ContributionString.transactionDate
+            ContributionString.transactionDate,
+             ContributionString.type
           ],
           where: '${ContributionString.goalId} = ?',
           whereArgs: <int>[goalId]);
@@ -104,7 +106,7 @@ class MoneyBoxDb {
     }
   }
 
-  Future<Contribution> getMobility(int id) async {
+  Future<Contribution> getgetContribution(int id) async {
     try {
       var result = await database.query(ContributionString.tableName,
           columns: [
@@ -123,7 +125,7 @@ class MoneyBoxDb {
     }
   }
 
-  Future<void> deleteMobility(int id) async {
+  Future<void> deletegetContribution(int id) async {
     try {
       await database.delete(ContributionString.tableName, where: '${ContributionString.id} = ?', whereArgs: <int>[id]);
     } catch (e) {
@@ -131,7 +133,7 @@ class MoneyBoxDb {
     }
   }
 
-  Future<void> updateMobility(Contribution mobility) async {
+  Future<void> updategetContribution(Contribution mobility) async {
     try {
       await database.update(ContributionString.tableName, mobility.toJson(),
           where: '${mobility.id} = ?', whereArgs: <int>[mobility.id]);

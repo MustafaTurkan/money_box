@@ -29,9 +29,19 @@ class AppNavigator {
     return Navigator.push(
       context,
       MaterialPageRoute(
-          fullscreenDialog: true,
           builder: (context) => CompleteView(
                 goals: goals,
+              )),
+    );
+  }
+
+    Future<bool> pushCompleteContributionList(BuildContext context, List<Contribution> contributions) {
+    return Navigator.push(
+      context,
+      MaterialPageRoute(
+          fullscreenDialog: true,
+          builder: (context) => CompleteContributionListView(
+               contributions:contributions
               )),
     );
   }

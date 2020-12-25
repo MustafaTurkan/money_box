@@ -1,2 +1,2 @@
 export 'goal/goal.dart';
-export 'contribution/contribution_add_view.dart';
+export 'contribution/contribution.dart';

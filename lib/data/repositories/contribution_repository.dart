@@ -7,6 +7,11 @@ class ContributionRepository implements IContributionRepository {
 
   @override
   Future<void> add(Contribution contribution) async {
-    await moneyBoxDb.insertMobility(contribution);
+    await moneyBoxDb.insertContribution(contribution);
+  }
+
+  @override
+  Future<List<Contribution>> getContributions(int goalId) async{
+      return moneyBoxDb.getContributions(goalId);
   }
 }

@@ -2,8 +2,6 @@ class DbString {
   static const String name = 'money_box.db';
 }
 
-
-
 class GoalString {
   static const String tableName = 'goal';
   static const String id = 'id';
@@ -20,7 +18,7 @@ class GoalString {
 class ContributionString {
   static const String tableName = 'mobility';
   static const String id = 'id';
-  static const String type = 'type';
+  static const String type = 'ctype';
   static const String goalId = 'goalId';
   static const String title = 'title';
   static const String transactionDate = 'transactionDate';

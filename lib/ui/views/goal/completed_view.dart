@@ -28,6 +28,7 @@ class _CompleteViewState extends State<CompleteView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Text(localizer.complatedGoals),
       ),
       body: CustomScrollView(
@@ -55,11 +56,14 @@ class _CompleteViewState extends State<CompleteView> {
         pinned: true,
         delegate: FixedHeightSliverPersistentHeaderDelegate(
           height:headerHeight,
-          child:ContentTitle(
-            backgroundColor: appTheme.colors.canvasLight,
-            icon: WidgetFactory.emptyWidget(),
-            title: localizer.totalCompletedAmount,
-            leadingText: widget.goals.sum((e) => e.deposited.orDefault()).toCurrencyString(),
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: Space.xxs),
+            child: ContentTitle(
+              backgroundColor: appTheme.colors.canvasLight,
+              icon: WidgetFactory.emptyWidget(),
+              title: localizer.totalCompletedAmount,
+              leadingText: widget.goals.sum((e) => e.deposited.orDefault()).toCurrencyString(),
+            ),
           ),
         ));
   }

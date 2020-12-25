@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:money_box/data/data.dart';
+import 'package:money_box/domain/domain.dart';
 import 'package:money_box/infrastructure/infrastructure.dart';
 import 'package:money_box/ui/ui.dart';
 
@@ -12,7 +13,12 @@ class Tile extends StatefulWidget {
 }
 
 class _TileState extends State<Tile> {
+  _TileState()
+      : navigator = AppService.get<AppNavigator>(),
+        contributionRepository = AppService.get<IContributionRepository>();
   final double cardHeight = 210;
+  final AppNavigator navigator;
+  final IContributionRepository contributionRepository;
   AppTheme appTheme;
   Localizer localizer;
   @override
@@ -25,6 +31,7 @@ class _TileState extends State<Tile> {
   @override
   Widget build(BuildContext context) {
     return Card(
+     margin: EdgeInsets.symmetric(horizontal: Space.xxs, vertical: Space.xs),
         child: SizedBox(
       height: cardHeight,
       child: Column(
@@ -105,17 +112,25 @@ class _TileState extends State<Tile> {
     return IconButton(
         icon: Icon(
           AppIcons.homeCurrencyUsd,
-          color: appTheme.colors.success,
+          color: appTheme.colors.success.lighten(0.3),
         ),
-        onPressed: () {});
+        onPressed: () async {
+          await onContributions();
+        });
   }
 
   Widget buildDeleteButton() {
     return IconButton(
         icon: Icon(
           AppIcons.deleteOutline,
-          color: appTheme.colors.error,
+          color: appTheme.colors.error.lighten(0.3),
         ),
         onPressed: () {});
+  }
+
+  Future<void> onContributions() async {
+    var result = await WaitDialog.scope<List<Contribution>>(
+        context: context, call: (_) async => contributionRepository.getContributions(widget.goal.id));
+    await navigator.pushCompleteContributionList(context, result);
   }
 }

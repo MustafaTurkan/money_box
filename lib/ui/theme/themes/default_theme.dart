@@ -178,6 +178,7 @@ AppThemeData buildDefaultTheme(BuildContext context, {IAppColors colors}) {
     ),
 
     cardTheme: CardTheme(
+    margin:EdgeInsets.all(1),
       color: appColors.canvasLight,
       elevation: 0.5,
       shape: RoundedRectangleBorder(borderRadius: cardBorderRadius),

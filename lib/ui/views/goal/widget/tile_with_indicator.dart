@@ -30,6 +30,7 @@ class _TileWithIndicatorState extends State<TileWithIndicator> {
   @override
   Widget build(BuildContext context) {
     return Card(
+    //  margin:EdgeInsets.symmetric(horizontal:Space.s,vertical:Space.xxs),
         child: Row(
       children: [
         Padding(
@@ -71,7 +72,7 @@ class _TileWithIndicatorState extends State<TileWithIndicator> {
     return IconButton(
         icon: Icon(
           AppIcons.plusCircleOutline,
-          color: appTheme.colors.success,
+          color: appTheme.colors.success.lighten(0.3),
         ),
         onPressed: () async {
           await onIncrement(context);
@@ -82,7 +83,7 @@ class _TileWithIndicatorState extends State<TileWithIndicator> {
     return IconButton(
         icon: Icon(
           AppIcons.minusCircleOutline,
-          color: appTheme.colors.error,
+          color: appTheme.colors.error.lighten(0.3),
         ),
         onPressed: () async {
           await onDecrement(context);
