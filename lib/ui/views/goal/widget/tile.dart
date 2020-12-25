@@ -72,10 +72,10 @@ class _TileState extends State<Tile> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         WidgetFactory.columnLabelValue(
-            appTheme: appTheme, label: localizer.goalAmount, value: Formatter.moneyToString(widget.goal.targetAmount)),
+            appTheme: appTheme, label: localizer.goalAmount, value: widget.goal.targetAmount.toCurrencyString()),
         IndentDivider(),
         WidgetFactory.columnLabelValue(
-            appTheme: appTheme, label: localizer.deposited, value: Formatter.moneyToString(widget.goal.deposited)),
+            appTheme: appTheme, label: localizer.deposited, value: widget.goal.deposited.toCurrencyString()),
         IndentDivider(),
         WidgetFactory.columnLabelValue(
             appTheme: appTheme, label: localizer.goalDate, value: Formatter.dateToString(widget.goal.targetDate)),

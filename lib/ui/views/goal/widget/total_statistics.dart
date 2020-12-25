@@ -47,13 +47,13 @@ class TotalStatistics extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     WidgetFactory.columnLabelValue(
-                        appTheme: appTheme, label: localizer.goalAmount, value: Formatter.moneyToString(totalAmount)),
+                        appTheme: appTheme, label: localizer.goalAmount, value: totalAmount.toCurrencyString()),
                     IndentDivider(),
                     WidgetFactory.columnLabelValue(
-                        appTheme: appTheme, label: localizer.remaining, value: Formatter.moneyToString(remaining)),
+                        appTheme: appTheme, label: localizer.remaining, value: remaining.toCurrencyString()),
                     IndentDivider(),
                     WidgetFactory.columnLabelValue(
-                        appTheme: appTheme, label: localizer.deposited, value: Formatter.moneyToString(deposited)),
+                        appTheme: appTheme, label: localizer.deposited, value: deposited.toCurrencyString()),
                   ],
                 ),
               )
