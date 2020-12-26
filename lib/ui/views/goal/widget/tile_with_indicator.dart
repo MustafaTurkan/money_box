@@ -31,7 +31,7 @@ class _TileWithIndicatorState extends State<TileWithIndicator> {
   Widget build(BuildContext context) {
     return Card(
     //  margin:EdgeInsets.symmetric(horizontal:Space.s,vertical:Space.xxs),
-      elevation: 0.2,
+      elevation: 0.5,
         child: Row(
       children: [
         Padding(
