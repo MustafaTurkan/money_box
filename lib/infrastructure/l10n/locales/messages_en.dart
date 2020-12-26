@@ -55,6 +55,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Contributions": MessageLookupByLibrary.simpleMessage("Contributions"),
         "Remaining": MessageLookupByLibrary.simpleMessage("Remaining"),
         "Note": MessageLookupByLibrary.simpleMessage("Note"),
+        "You do not find a goal completed yet":
+            MessageLookupByLibrary.simpleMessage("You don't find a goal completed yet"),
         "Congratulations you achieved your goal":
             MessageLookupByLibrary.simpleMessage("Congratulations you achieved your goal."),
         "Complated Goals": MessageLookupByLibrary.simpleMessage("Complated Goals"),

@@ -63,6 +63,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Congratulations you achieved your goal": MessageLookupByLibrary.simpleMessage("Tebrikler hedefini başardın."),
         "Increment Money": MessageLookupByLibrary.simpleMessage("Para Artır"),
         "Decrement Money": MessageLookupByLibrary.simpleMessage("Para Azalt"),
+        "You do not find a goal completed yet":
+            MessageLookupByLibrary.simpleMessage("Henüz tamamlanan bir hedefiniz bulunmuyor"),
         "Must be greater than zero": MessageLookupByLibrary.simpleMessage("Sıfırdan büyük olmalı"),
         "mustBeGreaterThanValue": m0,
       };

@@ -29,7 +29,7 @@ class AppNavigator {
     return Navigator.push(
       context,
       MaterialPageRoute(
-          builder: (context) => CompleteView(
+          builder: (context) => CompleteGoalView(
                 goals: goals,
               )),
     );

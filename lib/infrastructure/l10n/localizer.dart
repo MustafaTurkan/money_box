@@ -39,7 +39,7 @@ class Localizer {
   String get title => Intl.message('Title');
   String get goalAmount => Intl.message('Goal Amount');
   String get goalDate => Intl.message('Goal Date');
-  String get congratulations=>Intl.message('Congratulations you achieved your goal');
+  String get congratulations => Intl.message('Congratulations you achieved your goal');
   String get ok => Intl.message('OK');
   String get yes => Intl.message('Yes');
   String get no => Intl.message('No');
@@ -65,7 +65,8 @@ class Localizer {
   String get complatedGoals => Intl.message('Complated Goals');
   String get incrementMoney => Intl.message('Increment Money');
   String get decrementMoney => Intl.message('Decrement Money');
-    String get contributions => Intl.message('Contributions');
+  String get contributions => Intl.message('Contributions');
+  String get dontFindCompletedGoal => Intl.message('You do not find a goal completed yet');
   String mustBeGreaterThanValue(String value) =>
       Intl.message('Must be greater than $value', name: 'mustBeGreaterThanValue', args: [value]);
 
