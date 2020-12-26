@@ -10,7 +10,6 @@ import 'package:money_box/ui/ui.dart';
 
 class GoalAddView extends StatefulWidget {
   GoalAddView({Key key}) : super(key: key);
-
   @override
   _GoalAddViewState createState() => _GoalAddViewState();
 }

@@ -33,7 +33,7 @@ class CardTitle extends StatelessWidget {
             ),
           ),
           IndentDivider(
-            color: color.lighten(0.3),
+            color: color,
           ),
           SizedBox(height: Space.m),
         ],

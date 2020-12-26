@@ -18,9 +18,9 @@ class DefaultThemeColors extends IAppColors {
   @override
   Color get divider => Color(0xffDADCE0);
   @override
-  Color get success => Color(0xff3dc954);
+  Color get success => Color(0xff3dc954).lighten(0.3);
   @override
-  Color get error => Color(0xfff54d53);
+  Color get error => Color(0xfff54d53).lighten(0.3);
   @override
   Color get warning => Color(0xfffd791c);
   @override
@@ -180,7 +180,7 @@ AppThemeData buildDefaultTheme(BuildContext context, {IAppColors colors}) {
     cardTheme: CardTheme(
     margin:EdgeInsets.all(1),
       color: appColors.canvasLight,
-      elevation: 0.5,
+      elevation: 0,
       shape: RoundedRectangleBorder(borderRadius: cardBorderRadius),
     ),
     snackBarTheme: SnackBarThemeData(

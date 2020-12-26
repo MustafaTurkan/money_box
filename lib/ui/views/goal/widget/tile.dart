@@ -112,7 +112,7 @@ class _TileState extends State<Tile> {
     return IconButton(
         icon: Icon(
           AppIcons.homeCurrencyUsd,
-          color: appTheme.colors.success.lighten(0.3),
+          color: appTheme.colors.success,
         ),
         onPressed: () async {
           await onContributions();
@@ -123,7 +123,7 @@ class _TileState extends State<Tile> {
     return IconButton(
         icon: Icon(
           AppIcons.deleteOutline,
-          color: appTheme.colors.error.lighten(0.3),
+          color: appTheme.colors.error,
         ),
         onPressed: () {});
   }
