@@ -32,6 +32,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Loading...": MessageLookupByLibrary.simpleMessage("Yükleniyor ..."),
         "An unexpected error occurred!": MessageLookupByLibrary.simpleMessage("Beklenmeyen bir hata oluştu!"),
         "You do not have any active goal": MessageLookupByLibrary.simpleMessage("Aktif bir hedefin bulunmuyor"),
+        "You do not have any completed goal": MessageLookupByLibrary.simpleMessage("Tamamlanan bir hedefin bulunmuyor"),
+
         "Search": MessageLookupByLibrary.simpleMessage("Ara"),
         "Add Picture": MessageLookupByLibrary.simpleMessage("Resim Ekle"),
         "Title": MessageLookupByLibrary.simpleMessage("Başlık"),
@@ -63,6 +65,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Congratulations you achieved your goal": MessageLookupByLibrary.simpleMessage("Tebrikler hedefini başardın."),
         "Increment Money": MessageLookupByLibrary.simpleMessage("Para Artır"),
         "Decrement Money": MessageLookupByLibrary.simpleMessage("Para Azalt"),
+                "Total Deposited": MessageLookupByLibrary.simpleMessage("Toplam Biriken"),
         "You do not find a goal completed yet":
             MessageLookupByLibrary.simpleMessage("Henüz tamamlanan bir hedefiniz bulunmuyor"),
         "Must be greater than zero": MessageLookupByLibrary.simpleMessage("Sıfırdan büyük olmalı"),

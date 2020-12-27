@@ -14,4 +14,9 @@ class ContributionRepository implements IContributionRepository {
   Future<List<Contribution>> getContributions(int goalId) async{
       return moneyBoxDb.getContributions(goalId);
   }
+
+  @override
+  Future<void> deleteContributionsByGoal(int goalId)async {
+   await moneyBoxDb.deleteContributionByGoal(goalId);
+  }
 }

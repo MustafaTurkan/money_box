@@ -7,9 +7,17 @@ class GoalRepository implements IGoalRepository{
   final MoneyBoxDb moneyBoxDb;
 
   @override
-  Future<List<Goal>> getGoals() {
-      return moneyBoxDb.getGoals();
+  Future<List<Goal>> getGoals() async{
+      var goals=await moneyBoxDb.getGoals();
+     return goals.where((e) => !e.isComplate).toList();
   }
+
+    @override
+  Future<List<Goal>> getCopletedGoals() async{
+      var goals=await moneyBoxDb.getGoals();
+     return goals.where((e) => e.isComplate).toList();
+  }
+
 
   @override
   Future<void> add(Goal goal) async{
@@ -24,6 +32,11 @@ class GoalRepository implements IGoalRepository{
   @override
   Future<Goal> getGoal(int id) async{
     return moneyBoxDb.getGoal(id);
+  }
+
+  @override
+  Future<void> delete(int id) async{
+    await moneyBoxDb.deleteGoal(id);
   }
 
 }

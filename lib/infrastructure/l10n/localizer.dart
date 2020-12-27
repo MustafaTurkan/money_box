@@ -30,6 +30,7 @@ class Localizer {
   String get recordNotFound => Intl.message('Record not found!');
   String get noData => Intl.message('No data');
   String get dontHaveActiveGoals => Intl.message('You do not have any active goal');
+  String get dontHaveCompletedGoals => Intl.message('You do not have any completed goal');
   String get anUnExpectedErrorOccurred => Intl.message('An unexpected error occurred!');
   String get addGoal => Intl.message('Add Goal');
   String get loading => Intl.message('Loading...');
@@ -65,6 +66,7 @@ class Localizer {
   String get complatedGoals => Intl.message('Complated Goals');
   String get incrementMoney => Intl.message('Increment Money');
   String get decrementMoney => Intl.message('Decrement Money');
+    String get totalDeposited => Intl.message('Total Deposited');
   String get contributions => Intl.message('Contributions');
   String get dontFindCompletedGoal => Intl.message('You do not find a goal completed yet');
   String mustBeGreaterThanValue(String value) =>

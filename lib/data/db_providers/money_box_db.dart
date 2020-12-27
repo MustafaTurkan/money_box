@@ -106,7 +106,7 @@ class MoneyBoxDb {
     }
   }
 
-  Future<Contribution> getgetContribution(int id) async {
+  Future<Contribution> getContribution(int id) async {
     try {
       var result = await database.query(ContributionString.tableName,
           columns: [
@@ -125,7 +125,7 @@ class MoneyBoxDb {
     }
   }
 
-  Future<void> deletegetContribution(int id) async {
+  Future<void> deleteContribution(int id) async {
     try {
       await database.delete(ContributionString.tableName, where: '${ContributionString.id} = ?', whereArgs: <int>[id]);
     } catch (e) {
@@ -133,7 +133,15 @@ class MoneyBoxDb {
     }
   }
 
-  Future<void> updategetContribution(Contribution mobility) async {
+    Future<void> deleteContributionByGoal(int goalId) async {
+    try {
+      await database.delete(ContributionString.tableName, where: '${GoalString.id} = ?', whereArgs: <int>[goalId]);
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  Future<void> updateContribution(Contribution mobility) async {
     try {
       await database.update(ContributionString.tableName, mobility.toJson(),
           where: '${mobility.id} = ?', whereArgs: <int>[mobility.id]);

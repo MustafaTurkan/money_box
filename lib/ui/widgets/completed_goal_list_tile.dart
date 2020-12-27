@@ -6,8 +6,9 @@ import 'package:money_box/infrastructure/infrastructure.dart';
 import 'package:money_box/ui/ui.dart';
 
 class CompletedGoalListTile extends StatefulWidget {
-  CompletedGoalListTile({Key key, @required this.goal}) : super(key: key);
+  CompletedGoalListTile({Key key, @required this.goal,@required this.onDelete}) : super(key: key);
   final Goal goal;
+  final Function(int) onDelete;
   @override
   _CompletedGoalListTileState createState() => _CompletedGoalListTileState();
 }
@@ -125,7 +126,8 @@ class _CompletedGoalListTileState extends State<CompletedGoalListTile> {
           AppIcons.deleteOutline,
           color: appTheme.colors.error,
         ),
-        onPressed: () {});
+          onPressed:(){widget.onDelete(widget.goal.id);}
+        );
   }
 
   Future<void> onContributions() async {

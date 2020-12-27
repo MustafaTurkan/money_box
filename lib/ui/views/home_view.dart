@@ -101,7 +101,7 @@ class _HomeViewState extends State<HomeView> {
               return BackgroundHint.unExpectedError(context);
             }
             if (state is GoalListSuccesed) {
-              if (state.endlessGoals.isNullOrEmpty()) {
+              if (state.goals.isNullOrEmpty()) {
                 return BackgroundHint(
                   iconData: AppIcons.piggyBank,
                   message: localizer.dontHaveActiveGoals,
@@ -129,7 +129,7 @@ class _HomeViewState extends State<HomeView> {
                           child: TotalGoalDashboard(
                             appTheme: appTheme,
                             dashboardHeight: dashboardHeight,
-                            goals: state.endlessGoals,
+                            goals: state.goals,
                             localizer: localizer,
                             mediaQuery: mediaQuery,
                           ))),
@@ -148,15 +148,15 @@ class _HomeViewState extends State<HomeView> {
                     delegate: SliverChildBuilderDelegate(
                       (context, index) {
                         return GoalListTile(
-                            goal: state.endlessGoals[index],
-                            onAddContribution: (goal) {
+                            goal: state.goals[index],
+                            onAddContribution: (goal) async{
                               if (goal.targetAmount <= goal.deposited) {
                                 SnackBarAlert.info(context: context, message: localizer.congratulations);
                               }
-                              setState(() {});
+                                await context.getBloc<GoalListCubit>().loadGloals();
                             });
                       },
-                      childCount: state.endlessGoals.length,
+                      childCount: state.goals.length,
                     ),
                   )
                 ],
@@ -179,16 +179,20 @@ class _HomeViewState extends State<HomeView> {
 
   Widget buildCompleteGoalsButton() {
     return BlocBuilder<GoalListCubit, GoalListState>(builder: (context, state) {
-      if (state is GoalListSuccesed) {
+      if (state is GoalListSuccesed){
         return IconButton(
           icon: Icon(AppIcons.playlistCheck),
-          onPressed: () {
-            if (state.completedGoals.isNullOrEmpty()) {
-              MessageDialog.info(context: context, message:localizer.dontFindCompletedGoal);
+          onPressed: ()async {
+     
+      var result = await WaitDialog.scope<List<Goal>>(
+        context: context, call: (_) async => repository.getCopletedGoals());
+
+            if (result.isNullOrEmpty()) {
+             await MessageDialog.info(context: context, message:localizer.dontFindCompletedGoal);
               return;
             }
+         await navigator.pushCompletedGoals(context, result);
 
-            navigator.pushCompletedGoals(context, state.completedGoals);
           },
         );
       }

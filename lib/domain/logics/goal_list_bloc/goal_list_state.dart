@@ -8,14 +8,6 @@ class GoalListloading extends GoalListState {}
 class GoalListSuccesed extends GoalListState {
   GoalListSuccesed({@required this.goals});
   final List<Goal> goals;
-
-  List<Goal> get endlessGoals {
-    return goals.where((e) => !e.isComplate).toList();
-  }
-
-  List<Goal> get completedGoals {
-    return goals.where((e) => e.isComplate).toList();
-  }
 }
 
 class GoalListFail extends GoalListState {
