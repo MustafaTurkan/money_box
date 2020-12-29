@@ -68,6 +68,7 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Total Deposited": MessageLookupByLibrary.simpleMessage("Toplam Biriken"),
         "You do not find a goal completed yet":
             MessageLookupByLibrary.simpleMessage("Henüz tamamlanan bir hedefiniz bulunmuyor"),
+            "Goal is being deleted": MessageLookupByLibrary.simpleMessage("Hedef siliniyor..."),
         "Must be greater than zero": MessageLookupByLibrary.simpleMessage("Sıfırdan büyük olmalı"),
         "mustBeGreaterThanValue": m0,
       };

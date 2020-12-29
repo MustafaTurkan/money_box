@@ -67,6 +67,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Decrement Money": MessageLookupByLibrary.simpleMessage("Decrement Money"),
         "Total Completed Amount": MessageLookupByLibrary.simpleMessage("Total Amount"),
         "Deposited": MessageLookupByLibrary.simpleMessage("Deposited"),
+         "Goal is being deleted": MessageLookupByLibrary.simpleMessage("Goal is being deleted..."),
         "Must be greater than zero": MessageLookupByLibrary.simpleMessage("Must be greater than zero"),
         "mustBeGreaterThanValue": m0,
       };

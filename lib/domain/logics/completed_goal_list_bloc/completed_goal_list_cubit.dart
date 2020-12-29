@@ -18,7 +18,7 @@ class CompletedGoalListCubit extends Cubit<CompletedGoalListState> {
       emit(CompletedGoalListloading());
       await goalRepository.delete(goalId);
       await contributionRepository.deleteContributionsByGoal(goalId);
-     
+    
        goals =await goalRepository.getCopletedGoals();
       emit(CompletedGoalListSuccesed(goals: goals));
     } catch (e) {

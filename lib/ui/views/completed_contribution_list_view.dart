@@ -3,8 +3,8 @@ import 'package:money_box/data/data.dart';
 import 'package:money_box/infrastructure/infrastructure.dart';
 import 'package:money_box/ui/ui.dart';
 
-class CompleteContributionListView extends StatelessWidget {
-  const CompleteContributionListView({Key key, @required this.contributions}) : super(key: key);
+class CompletedContributionListView extends StatelessWidget {
+  const CompletedContributionListView({Key key, @required this.contributions}) : super(key: key);
 
   final List<Contribution> contributions;
   @override

@@ -149,11 +149,11 @@ class _HomeViewState extends State<HomeView> {
                       (context, index) {
                         return GoalListTile(
                             goal: state.goals[index],
-                            onAddContribution: (goal) async{
+                            onAddContribution: (goal) async {
                               if (goal.targetAmount <= goal.deposited) {
                                 SnackBarAlert.info(context: context, message: localizer.congratulations);
                               }
-                                await context.getBloc<GoalListCubit>().loadGloals();
+                              await context.getBloc<GoalListCubit>().loadGloals();
                             });
                       },
                       childCount: state.goals.length,
@@ -179,20 +179,18 @@ class _HomeViewState extends State<HomeView> {
 
   Widget buildCompleteGoalsButton() {
     return BlocBuilder<GoalListCubit, GoalListState>(builder: (context, state) {
-      if (state is GoalListSuccesed){
+      if (state is GoalListSuccesed) {
         return IconButton(
           icon: Icon(AppIcons.playlistCheck),
-          onPressed: ()async {
-     
-      var result = await WaitDialog.scope<List<Goal>>(
-        context: context, call: (_) async => repository.getCopletedGoals());
+          onPressed: () async {
+            var result =
+                await WaitDialog.scope<List<Goal>>(context: context, call: (_) async => repository.getCopletedGoals());
 
             if (result.isNullOrEmpty()) {
-             await MessageDialog.info(context: context, message:localizer.dontFindCompletedGoal);
+              await MessageDialog.info(context: context, message: localizer.dontFindCompletedGoal);
               return;
             }
-         await navigator.pushCompletedGoals(context, result);
-
+            await navigator.pushCompletedGoals(context, result);
           },
         );
       }

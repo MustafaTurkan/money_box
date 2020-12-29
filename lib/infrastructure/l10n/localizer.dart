@@ -68,6 +68,7 @@ class Localizer {
   String get decrementMoney => Intl.message('Decrement Money');
     String get totalDeposited => Intl.message('Total Deposited');
   String get contributions => Intl.message('Contributions');
+  String get goalDeleteMessage => Intl.message('Goal is being deleted');
   String get dontFindCompletedGoal => Intl.message('You do not find a goal completed yet');
   String mustBeGreaterThanValue(String value) =>
       Intl.message('Must be greater than $value', name: 'mustBeGreaterThanValue', args: [value]);

@@ -6,7 +6,7 @@ import 'package:money_box/infrastructure/infrastructure.dart';
 import 'package:money_box/ui/ui.dart';
 
 class CompletedGoalListTile extends StatefulWidget {
-  CompletedGoalListTile({Key key, @required this.goal,@required this.onDelete}) : super(key: key);
+  CompletedGoalListTile({Key key, @required this.goal, @required this.onDelete}) : super(key: key);
   final Goal goal;
   final Function(int) onDelete;
   @override
@@ -32,29 +32,29 @@ class _CompletedGoalListTileState extends State<CompletedGoalListTile> {
   @override
   Widget build(BuildContext context) {
     return Card(
-     margin: EdgeInsets.symmetric(horizontal: Space.xxs, vertical: Space.xs),
+        margin: EdgeInsets.symmetric(horizontal: Space.xxs, vertical: Space.xs),
         child: SizedBox(
-      height: cardHeight,
-      child: Column(
-        children: [
-          buildTitle(context),
-          IndentDivider(),
-          Expanded(
-            child: Row(
-              children: [
-                RectangleImage(img: widget.goal.img, height: 120, width: 90),
-                VerticalDivider(
-                  indent: Space.s,
-                  endIndent: Space.s,
-                  thickness: 0.5,
+          height: cardHeight,
+          child: Column(
+            children: [
+              buildTitle(context),
+              IndentDivider(),
+              Expanded(
+                child: Row(
+                  children: [
+                    RectangleImage(img: widget.goal.img, height: 120, width: 90),
+                    VerticalDivider(
+                      indent: Space.s,
+                      endIndent: Space.s,
+                      thickness: 0.5,
+                    ),
+                    Expanded(child: buildDetail())
+                  ],
                 ),
-                Expanded(child: buildDetail())
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
-      ),
-    ));
+        ));
   }
 
   Padding buildImage() {
@@ -103,7 +103,7 @@ class _CompletedGoalListTileState extends State<CompletedGoalListTile> {
             maxLines: 1,
           ),
         ),
-        buildDeleteButton(),
+        buildDeleteButton(context),
         buildContributionButton()
       ],
     );
@@ -120,19 +120,32 @@ class _CompletedGoalListTileState extends State<CompletedGoalListTile> {
         });
   }
 
-  Widget buildDeleteButton() {
+  Widget buildDeleteButton(BuildContext context) {
     return IconButton(
         icon: Icon(
           AppIcons.deleteOutline,
           color: appTheme.colors.error,
         ),
-          onPressed:(){widget.onDelete(widget.goal.id);}
-        );
+        onPressed: () async {
+          await onDelete(context);
+        });
   }
 
   Future<void> onContributions() async {
     var result = await WaitDialog.scope<List<Contribution>>(
         context: context, call: (_) async => contributionRepository.getContributions(widget.goal.id));
-    await navigator.pushCompleteContributionList(context, result);
+    await navigator.pushCompletedContributionList(context, result);
+  }
+
+  Future<void> onDelete(BuildContext context) async {
+    var result = await MessageDialog.question(
+      context: context,
+      message: localizer.goalDeleteMessage,
+      buttons: DialogButton.yesNo,
+    );
+    if (result == DialogResult.no) {
+      return;
+    }
+    widget.onDelete(widget.goal.id);
   }
 }
