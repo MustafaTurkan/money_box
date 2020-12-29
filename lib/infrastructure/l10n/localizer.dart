@@ -38,7 +38,7 @@ class Localizer {
   String get completed => Intl.message('Completed');
   String get addPhoto => Intl.message('Add Picture');
   String get title => Intl.message('Title');
-  String get goalAmount => Intl.message('Goal Amount');
+  String get amount => Intl.message('Amount');
   String get goalDate => Intl.message('Goal Date');
   String get congratulations => Intl.message('Congratulations you achieved your goal');
   String get ok => Intl.message('OK');
@@ -62,13 +62,19 @@ class Localizer {
   String get totalCompletedAmount => Intl.message('Total Completed Amount');
   String get deposited => Intl.message('Deposited');
   String get remaining => Intl.message('Remaining');
+    String get goalAmount => Intl.message('Goal Amount');
   String get note => Intl.message('Note');
   String get complatedGoals => Intl.message('Complated Goals');
   String get incrementMoney => Intl.message('Increment Money');
   String get decrementMoney => Intl.message('Decrement Money');
-    String get totalDeposited => Intl.message('Total Deposited');
+  String get totalDeposited => Intl.message('Total Deposited');
+  String get byAlphabet => Intl.message('By Alphabet');
+     String get byMinGoalAmount => Intl.message('By Min Goal Amount');
+      String get byMaxGoalAmount => Intl.message('By Max Goal Amount');
   String get contributions => Intl.message('Contributions');
   String get goalDeleteMessage => Intl.message('Goal is being deleted');
+    String get sort => Intl.message('Sort');
+  
   String get dontFindCompletedGoal => Intl.message('You do not find a goal completed yet');
   String mustBeGreaterThanValue(String value) =>
       Intl.message('Must be greater than $value', name: 'mustBeGreaterThanValue', args: [value]);

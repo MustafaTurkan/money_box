@@ -33,7 +33,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "You do not have any active goal": MessageLookupByLibrary.simpleMessage("You do not have any active goal"),
         "Add Picture": MessageLookupByLibrary.simpleMessage("Add Picture"),
         "Title": MessageLookupByLibrary.simpleMessage("Title"),
-        "Goal Amount": MessageLookupByLibrary.simpleMessage("Amount"),
+        "Amount": MessageLookupByLibrary.simpleMessage("Amount"),
         "Goal Date": MessageLookupByLibrary.simpleMessage("Date"),
         "OK": MessageLookupByLibrary.simpleMessage("OK"),
         "Yes": MessageLookupByLibrary.simpleMessage("Yes"),
@@ -51,8 +51,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "monthly": MessageLookupByLibrary.simpleMessage("Monthly"),
         "Required": MessageLookupByLibrary.simpleMessage("Required"),
         "Saving Period": MessageLookupByLibrary.simpleMessage("Period"),
+        "Goal Amount": MessageLookupByLibrary.simpleMessage("Goal Amount"),
         "Total": MessageLookupByLibrary.simpleMessage("Total"),
         "Contributions": MessageLookupByLibrary.simpleMessage("Contributions"),
+                        "Sort": MessageLookupByLibrary.simpleMessage("Sort"),
         "Remaining": MessageLookupByLibrary.simpleMessage("Remaining"),
         "You do not have any completed goal":
             MessageLookupByLibrary.simpleMessage("You do not have any completed goal"),
@@ -62,6 +64,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("You don't find a goal completed yet"),
         "Congratulations you achieved your goal":
             MessageLookupByLibrary.simpleMessage("Congratulations you achieved your goal."),
+        "By Alphabet": MessageLookupByLibrary.simpleMessage("By Alphabet"),
         "Complated Goals": MessageLookupByLibrary.simpleMessage("Complated Goals"),
         "Increment Money": MessageLookupByLibrary.simpleMessage("Increment Money"),
         "Decrement Money": MessageLookupByLibrary.simpleMessage("Decrement Money"),
@@ -69,6 +72,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Deposited": MessageLookupByLibrary.simpleMessage("Deposited"),
          "Goal is being deleted": MessageLookupByLibrary.simpleMessage("Goal is being deleted..."),
         "Must be greater than zero": MessageLookupByLibrary.simpleMessage("Must be greater than zero"),
+        "By Max Goal Amount": MessageLookupByLibrary.simpleMessage("By Max Goal Amount"),
+        "By Min Goal Amount": MessageLookupByLibrary.simpleMessage("By Min Goal Amount"),
         "mustBeGreaterThanValue": m0,
       };
 }

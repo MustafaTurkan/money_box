@@ -14,6 +14,7 @@ class GoalListTile extends StatefulWidget {
 class _GoalListTileState extends State<GoalListTile> {
   _GoalListTileState() : navigator = AppService.get<AppNavigator>();
 
+  final double cardHeight = 136;
   MediaQueryData mediaQuery;
   Localizer localizer;
   AppTheme appTheme;
@@ -30,43 +31,73 @@ class _GoalListTileState extends State<GoalListTile> {
   @override
   Widget build(BuildContext context) {
     return Card(
-    //  margin:EdgeInsets.symmetric(horizontal:Space.s,vertical:Space.xxs),
-      elevation: 0.5,
-        child: Row(
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(Space.m),
-          child: CircularImage(img: widget.goal.img),
-        ),
-        Expanded(
+        margin: EdgeInsets.symmetric(horizontal: Space.xxs, vertical: Space.xs),
+        child: SizedBox(
+          height: cardHeight,
           child: Column(
             children: [
-              Row(
-                children: [
-                  Expanded(
-                    flex: 4,
-                    child: buildTitle(),
-                  ),
-                  Spacer(),
-                  Expanded(child: buildDecrementButton(context)),
-                  Expanded(child: buildIncrementButton(context))
-                ],
-              ),
-              IndentDivider(
-                indent: 0,
-              ),
-              SizedBox(
-                height: Space.s,
-              ),
-              buildlineerRateIndicator(),
-              SizedBox(
-                height: Space.m,
+              buildTitle(context),
+              IndentDivider(),
+              Expanded(
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(Space.m),
+                      child: CircularImage(
+                        img: widget.goal.img,
+                        radius: 35,
+                      ),
+                    ),
+                    VerticalDivider(
+                      indent: Space.s,
+                      endIndent: Space.s,
+                      thickness: 0.5,
+                    ),
+                    Expanded(child: buildDetail())
+                  ],
+                ),
               ),
             ],
           ),
-        )
+        ));
+  }
+
+  Widget buildTitle(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Expanded(
+          child: ContentTitle(
+            
+            title: widget.goal.title,
+            maxLines: 1,
+          ),
+        ),
+        buildDecrementButton(context),
+        buildIncrementButton(context),
       ],
-    ));
+    );
+  }
+
+  Widget buildDetail() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        WidgetFactory.columnLabelValue(
+            appTheme: appTheme, label: localizer.goalAmount, value: widget.goal.targetAmount.toCurrencyString()),
+        //IndentDivider(),
+        buildlineerRateIndicator()
+      ],
+    );
+  }
+
+  Widget buildlineerRateIndicator() {
+    return Padding(
+      padding: EdgeInsets.all(Space.m),
+      child: AmountPercentLineerIndicator(
+          width: mediaQuery.size.widthPercent(65), totalValue: widget.goal.targetAmount, value: widget.goal.deposited),
+    );
   }
 
   Widget buildIncrementButton(BuildContext context) {
@@ -91,19 +122,6 @@ class _GoalListTileState extends State<GoalListTile> {
         });
   }
 
-  Widget buildTitle() {
-    return Text(
-      widget.goal.title,
-      style: appTheme.textStyles.body,
-      overflow: TextOverflow.ellipsis,
-    );
-  }
-
-  Widget buildlineerRateIndicator() {
-    return AmountPercentLineerIndicator(
-        width: mediaQuery.size.widthPercent(75), totalValue: widget.goal.targetAmount, value: widget.goal.deposited);
-  }
-
   Future<void> onDecrement(BuildContext context) async {
     var result = await navigator.pushContributionAdd(context, widget.goal, ContributionType.decrement);
     if (result != null) {
@@ -113,7 +131,6 @@ class _GoalListTileState extends State<GoalListTile> {
 
   Future<void> onIncrement(BuildContext context) async {
     var result = await navigator.pushContributionAdd(context, widget.goal, ContributionType.increment);
-
     if (result != null) {
       widget.onAddContribution(result);
     }

@@ -110,7 +110,7 @@ class _GoalAddViewState extends State<GoalAddView> {
           ),
           FieldContainer(
             padding: const EdgeInsets.all(Space.m),
-            labelText: localizer.goalAmount,
+            labelText: localizer.amount,
             child: TextFormField(
               controller: tecAmount,
               validator: MinAmountValidator(min: 0, errorText: localizer.mustBeGreaterThanZero),

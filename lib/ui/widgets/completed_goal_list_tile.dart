@@ -80,7 +80,7 @@ class _CompletedGoalListTileState extends State<CompletedGoalListTile> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         WidgetFactory.columnLabelValue(
-            appTheme: appTheme, label: localizer.goalAmount, value: widget.goal.targetAmount.toCurrencyString()),
+            appTheme: appTheme, label: localizer.amount, value: widget.goal.targetAmount.toCurrencyString()),
         IndentDivider(),
         WidgetFactory.columnLabelValue(
             appTheme: appTheme, label: localizer.deposited, value: widget.goal.deposited.toCurrencyString()),

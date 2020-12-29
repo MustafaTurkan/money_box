@@ -99,7 +99,7 @@ class _ContributionAddViewState extends State<ContributionAddView> {
         children: [
           FieldContainer(
             padding: const EdgeInsets.all(Space.m),
-            labelText: localizer.goalAmount,
+            labelText: localizer.amount,
             child: TextFormField(
               controller: tecAmount,
               validator: MinAmountValidator(min: 0, errorText: localizer.mustBeGreaterThanZero),

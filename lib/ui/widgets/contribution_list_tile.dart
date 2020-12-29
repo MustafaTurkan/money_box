@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:money_box/data/data.dart';
 import 'package:money_box/infrastructure/infrastructure.dart';
 
+
 class ContributionListTile extends StatelessWidget {
   const ContributionListTile({Key key, @required this.appTheme, @required this.contribution}) : super(key: key);
 
@@ -78,3 +79,4 @@ class ContributionListTile extends StatelessWidget {
     return appTheme.colors.success;
   }
 }
+

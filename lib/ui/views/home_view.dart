@@ -93,7 +93,7 @@ class _HomeViewState extends State<HomeView> {
           leading: buildSettingButton(),
           centerTitle: true,
           title: Text(localizer.appName),
-          actions: [buildCompleteGoalsButton(), buildFilterButton()],
+          actions: [buildCompleteGoalsButton(), buildFilterButton(context)],
         ),
         body: BlocBuilder<GoalListCubit, GoalListState>(
           builder: (context, state) {
@@ -198,10 +198,12 @@ class _HomeViewState extends State<HomeView> {
     });
   }
 
-  Widget buildFilterButton() {
+  Widget buildFilterButton(BuildContext buildContext) {
     return IconButton(
       icon: Icon(AppIcons.filter),
-      onPressed: () {},
+      onPressed: () async{
+        await ChooseSortDialog.show(context, navigator,localizer);
+      },
     );
   }
 
@@ -224,6 +226,8 @@ class _HomeViewState extends State<HomeView> {
       },
     );
   }
+
+
 
   void scrollontrollerListener() {
     scrollontroller.addListener(() {
@@ -250,4 +254,7 @@ class _HomeViewState extends State<HomeView> {
       await context.getBloc<GoalListCubit>().loadGloals();
     }
   }
+
+
+
 }

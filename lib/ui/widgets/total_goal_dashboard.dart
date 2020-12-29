@@ -47,7 +47,7 @@ class TotalGoalDashboard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     WidgetFactory.columnLabelValue(
-                        appTheme: appTheme, label: localizer.goalAmount, value: totalAmount.toCurrencyString()),
+                        appTheme: appTheme, label: localizer.amount, value: totalAmount.toCurrencyString()),
                     IndentDivider(),
                     WidgetFactory.columnLabelValue(
                         appTheme: appTheme, label: localizer.remaining, value: remaining.toCurrencyString()),
