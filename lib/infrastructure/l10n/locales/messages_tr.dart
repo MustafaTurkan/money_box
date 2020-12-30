@@ -45,7 +45,7 @@ class MessageLookup extends MessageLookupByLibrary {
                 "By Min Goal Amount": MessageLookupByLibrary.simpleMessage("Min Hedef Miktarına Göre"),
         "Goal Date": MessageLookupByLibrary.simpleMessage("Tarih"),
                 "Sort": MessageLookupByLibrary.simpleMessage("Sırala"),
-        
+        "You do not have any active goal to sort": MessageLookupByLibrary.simpleMessage("Sıralamak için herhangi bir aktif hedefiniz yok"),
         "OK": MessageLookupByLibrary.simpleMessage("Tamam"),
         "Yes": MessageLookupByLibrary.simpleMessage("Evet"),
         "No": MessageLookupByLibrary.simpleMessage("Hayır"),

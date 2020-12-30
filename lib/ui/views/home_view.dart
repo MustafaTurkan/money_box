@@ -93,7 +93,7 @@ class _HomeViewState extends State<HomeView> {
           leading: buildSettingButton(),
           centerTitle: true,
           title: Text(localizer.appName),
-          actions: [buildCompleteGoalsButton(), buildFilterButton(context)],
+          actions: [buildCompleteGoalsButton(), buildSortButton()],
         ),
         body: BlocBuilder<GoalListCubit, GoalListState>(
           builder: (context, state) {
@@ -153,7 +153,7 @@ class _HomeViewState extends State<HomeView> {
                               if (goal.targetAmount <= goal.deposited) {
                                 SnackBarAlert.info(context: context, message: localizer.congratulations);
                               }
-                              await context.getBloc<GoalListCubit>().loadGloals();
+                              await context.getBloc<GoalListCubit>().load();
                             });
                       },
                       childCount: state.goals.length,
@@ -198,13 +198,26 @@ class _HomeViewState extends State<HomeView> {
     });
   }
 
-  Widget buildFilterButton(BuildContext buildContext) {
-    return IconButton(
-      icon: Icon(AppIcons.filter),
-      onPressed: () async{
-        await ChooseSortDialog.show(context, navigator,localizer);
-      },
-    );
+  Widget buildSortButton() {
+    return BlocBuilder<GoalListCubit, GoalListState>(builder: (context, state) {
+      if (state is GoalListSuccesed) {
+        return IconButton(
+          icon: Icon(AppIcons.sort),
+          onPressed: () async {
+            if (state.goals.isNullOrEmpty()) {
+              await MessageDialog.info(context: context, message: localizer.dontHaveActiveGoalsToSort);
+              return;
+            }
+            var sortType = await ChooseSortDialog.show(context, navigator, localizer);
+            if (sortType == null) {
+              return;
+            }
+            context.getBloc<GoalListCubit>().sort(sortType);
+          },
+        );
+      }
+      return WidgetFactory.emptyWidget();
+    });
   }
 
   Widget buildGoalAddButton() {
@@ -226,8 +239,6 @@ class _HomeViewState extends State<HomeView> {
       },
     );
   }
-
-
 
   void scrollontrollerListener() {
     scrollontroller.addListener(() {
@@ -251,10 +262,7 @@ class _HomeViewState extends State<HomeView> {
   Future<void> onGoalAdd(BuildContext context) async {
     var isAdded = await navigator.pushGoalAdd(context);
     if (isAdded != null) {
-      await context.getBloc<GoalListCubit>().loadGloals();
+      await context.getBloc<GoalListCubit>().load();
     }
   }
-
-
-
 }

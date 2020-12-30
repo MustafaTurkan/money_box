@@ -56,6 +56,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Contributions": MessageLookupByLibrary.simpleMessage("Contributions"),
                         "Sort": MessageLookupByLibrary.simpleMessage("Sort"),
         "Remaining": MessageLookupByLibrary.simpleMessage("Remaining"),
+                "You do not have any active goal to sort": MessageLookupByLibrary.simpleMessage("You do not have any active goal to sort"),
         "You do not have any completed goal":
             MessageLookupByLibrary.simpleMessage("You do not have any completed goal"),
         "Note": MessageLookupByLibrary.simpleMessage("Note"),

@@ -8,7 +8,7 @@ class ChooseSortDialog extends StatelessWidget {
   final AppNavigator navigator;
   final Localizer localizer;
 
-  static Future<ChooseSort> show(BuildContext context, AppNavigator navigator,Localizer localizer) async {
+  static Future<SortType> show(BuildContext context, AppNavigator navigator,Localizer localizer) async {
     return showDialog(
       context: context,
       builder: (context) {
@@ -39,7 +39,7 @@ class ChooseSortDialog extends StatelessWidget {
   Widget alphabeticalOption(BuildContext context) {
     return SimpleDialogOption(
       onPressed: () {
-        navigator.pop(context, result: ChooseSort.alphabetical);
+        navigator.pop(context, result: SortType.alphabetical);
       },
       child: Text(localizer.byAlphabet),
     );
@@ -48,7 +48,7 @@ class ChooseSortDialog extends StatelessWidget {
   Widget minGoalAmountOption(BuildContext context) {
     return SimpleDialogOption(
       onPressed: () {
-        navigator.pop(context, result: ChooseSort.minGoalAmount);
+        navigator.pop(context, result: SortType.minGoalAmount);
       },
       child: Text(localizer.byMinGoalAmount),
     );
@@ -57,11 +57,11 @@ class ChooseSortDialog extends StatelessWidget {
   Widget maxGoalAmountOption(BuildContext context) {
     return SimpleDialogOption(
       onPressed: () {
-        navigator.pop(context, result: ChooseSort.maxGoalAmount);
+        navigator.pop(context, result: SortType.maxGoalAmount);
       },
       child: Text(localizer.byMaxGoalAmount),
     );
   }
 }
 
-enum ChooseSort { alphabetical, minGoalAmount, maxGoalAmount }
+enum SortType { alphabetical, minGoalAmount, maxGoalAmount }

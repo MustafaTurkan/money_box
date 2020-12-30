@@ -30,6 +30,7 @@ class Localizer {
   String get recordNotFound => Intl.message('Record not found!');
   String get noData => Intl.message('No data');
   String get dontHaveActiveGoals => Intl.message('You do not have any active goal');
+    String get dontHaveActiveGoalsToSort => Intl.message('You do not have any active goal to sort');
   String get dontHaveCompletedGoals => Intl.message('You do not have any completed goal');
   String get anUnExpectedErrorOccurred => Intl.message('An unexpected error occurred!');
   String get addGoal => Intl.message('Add Goal');
