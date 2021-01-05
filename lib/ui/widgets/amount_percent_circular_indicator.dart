@@ -3,12 +3,13 @@ import 'package:money_box/infrastructure/infrastructure.dart';
 
 class AmountPercentCircularIndicator extends StatelessWidget {
   const AmountPercentCircularIndicator(
-      {Key key, @required this.child, @required this.radius, @required this.totalValue, @required this.value})
+      {Key key,this.lineWidth=5, @required this.child, @required this.radius, @required this.totalValue, @required this.value})
       : super(key: key);
 
   final double totalValue;
   final double value;
   final double radius;
+    final double lineWidth;
   final Widget child;
 
   @override
@@ -18,9 +19,10 @@ class AmountPercentCircularIndicator extends StatelessWidget {
    
 
     return CircularPercentIndicator(
-      radius: 120,
-      lineWidth: 5,
+      radius: radius,
+      lineWidth: lineWidth,
       animation: true,
+      widgetIndicator: Icon(AppIcons.circleMedium,color:appTheme.colors.primaryPale,),
       backgroundColor: appTheme.colors.primaryPale.withOpacity(0.6),
       animationDuration: 2500,
       percent: getPercent(),

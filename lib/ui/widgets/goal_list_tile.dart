@@ -4,9 +4,11 @@ import 'package:money_box/infrastructure/infrastructure.dart';
 import 'package:money_box/ui/ui.dart';
 
 class GoalListTile extends StatefulWidget {
-  GoalListTile({Key key, @required this.goal, @required this.onAddContribution}) : super(key: key);
+  GoalListTile({Key key, @required this.goal, @required this.onAddContribution, @required this.onTab})
+      : super(key: key);
   final Goal goal;
   final Function(Goal) onAddContribution;
+  final Function(Goal) onTab;
   @override
   _GoalListTileState createState() => _GoalListTileState();
 }
@@ -30,36 +32,41 @@ class _GoalListTileState extends State<GoalListTile> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-        margin: EdgeInsets.symmetric(horizontal: Space.xxs, vertical: Space.xs),
-        child: SizedBox(
-          height: cardHeight,
-          child: Column(
-            children: [
-              buildTitle(context),
-              IndentDivider(),
-              Expanded(
-                child: Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(Space.m),
-                      child: CircularImage(
-                        img: widget.goal.img,
-                        radius: 35,
+    return GestureDetector(
+      onTap: () {
+        widget.onTab(widget.goal);
+      },
+      child: Card(
+          margin: EdgeInsets.symmetric(horizontal: Space.xxs, vertical: Space.xs),
+          child: SizedBox(
+            height: cardHeight,
+            child: Column(
+              children: [
+                buildTitle(context),
+                IndentDivider(),
+                Expanded(
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(Space.m),
+                        child: CircularImage(
+                          img: widget.goal.img,
+                          radius: 35,
+                        ),
                       ),
-                    ),
-                    VerticalDivider(
-                      indent: Space.s,
-                      endIndent: Space.s,
-                      thickness: 0.5,
-                    ),
-                    Expanded(child: buildDetail())
-                  ],
+                      VerticalDivider(
+                        indent: Space.s,
+                        endIndent: Space.s,
+                        thickness: 0.5,
+                      ),
+                      Expanded(child: buildDetail())
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          ),
-        ));
+              ],
+            ),
+          )),
+    );
   }
 
   Widget buildTitle(BuildContext context) {
@@ -68,7 +75,6 @@ class _GoalListTileState extends State<GoalListTile> {
       children: [
         Expanded(
           child: ContentTitle(
-            
             title: widget.goal.title,
             maxLines: 1,
           ),

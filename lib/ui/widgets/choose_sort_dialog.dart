@@ -41,7 +41,7 @@ class ChooseSortDialog extends StatelessWidget {
       onPressed: () {
         navigator.pop(context, result: SortType.alphabetical);
       },
-      child: Text(localizer.byAlphabet),
+      child:Text(localizer.byAlphabet),
     );
   }
 

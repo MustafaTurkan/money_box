@@ -158,7 +158,7 @@ AppThemeData buildDefaultTheme(BuildContext context, {IAppColors colors}) {
 
     elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-      elevation: 2,
+      elevation: 0.5,
       shape: RoundedRectangleBorder(borderRadius: buttonBorderRadius),
     )),
     textButtonTheme: TextButtonThemeData(

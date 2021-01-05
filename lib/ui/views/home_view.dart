@@ -149,6 +149,9 @@ class _HomeViewState extends State<HomeView> {
                       (context, index) {
                         return GoalListTile(
                             goal: state.goals[index],
+                            onTab:(goal){
+                              navigator.pushGoalDetail(context, goal);
+                            },
                             onAddContribution: (goal) async {
                               if (goal.targetAmount <= goal.deposited) {
                                 SnackBarAlert.info(context: context, message: localizer.congratulations);
